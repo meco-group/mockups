@@ -11,6 +11,8 @@ add_library(mex SHARED src/mex.cpp include/mex.h)
 add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h)
 add_library(ut SHARED src/ut.cpp)
 
+set_target_properties(mex mx ut PROPERTIES CXX_STANDARD 11)
+
 install(TARGETS mex mx ut EXPORT matlabTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
