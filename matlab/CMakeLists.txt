@@ -10,17 +10,29 @@ project(matlab
 add_library(mex SHARED src/mex.cpp include/mex.h)
 add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h)
 add_library(ut SHARED src/ut.cpp)
+add_library(eng SHARED src/eng.cpp)
 
-set_target_properties(mex mx ut PROPERTIES CXX_STANDARD 11)
+set_target_properties(mex mx ut eng PROPERTIES CXX_STANDARD 11)
 
-install(TARGETS mex mx ut EXPORT matlabTargets
+install(TARGETS mex mx ut eng EXPORT matlabTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
   INCLUDES DESTINATION include)
 
 add_library(matlab INTERFACE)
-target_link_libraries(matlab INTERFACE mex mx ut)
+target_link_libraries(matlab INTERFACE mex mx ut eng)
+
+
+
+if(APPLE)
+  set(MATLAB_MEX_EXT "mexi64")
+elseif(WIN32)
+  target_compile_definitions(matlab INTERFACE __STDC_UTF_16__ WINMAT64)
+  set(MATLAB_MEX_EXT "mexw64")
+else()
+  set(MATLAB_MEX_EXT "mexa64")
+endif()
 
 target_include_directories(mex PUBLIC
   $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
