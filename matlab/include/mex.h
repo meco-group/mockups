@@ -2,7 +2,7 @@
 #define mex_H
 
 
-#define SUFFIX(arg) arg ## _800
+#define SUFFIX(arg) arg ## _730
 
 extern "C"
 {
