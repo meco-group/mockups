@@ -12,6 +12,11 @@ add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h include/matrix_v
 add_library(ut SHARED src/ut.cpp)
 add_library(eng SHARED src/eng.cpp)
 
+if (MATLAB_API_VERSION)
+  target_compile_definitions(mex PUBLIC "APIVERSION=${MATLAB_API_VERSION}")
+  target_compile_definitions(mx PUBLIC "APIVERSION=${MATLAB_API_VERSION}")
+endif()
+
 set_target_properties(mex mx ut eng PROPERTIES CXX_STANDARD 11)
 
 install(TARGETS mex mx ut eng EXPORT matlabTargets
