@@ -2,12 +2,9 @@
 #define mex_H
 
 
-#define SUFFIX(arg) arg ## _730
-
 extern "C"
 {
-  struct mxArray;
-
+  typedef struct mxArray_tag mxArray;
 
 
   #include <matrix.h>

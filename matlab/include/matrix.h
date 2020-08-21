@@ -1,8 +1,6 @@
 #ifndef matrix_H
 #define matrix_H
 
-struct mxArray;
-
 
 #include <stdint.h>
 
