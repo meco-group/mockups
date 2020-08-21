@@ -7,8 +7,8 @@ cmake_minimum_required(VERSION 3.1...3.16)
 project(matlab
   LANGUAGES CXX)
 
-add_library(mex SHARED src/mex.cpp include/mex.h)
-add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h)
+add_library(mex SHARED src/mex.cpp include/mex.h include/mex_versions.h)
+add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h include/matrix_versions.h)
 add_library(ut SHARED src/ut.cpp)
 add_library(eng SHARED src/eng.cpp)
 
