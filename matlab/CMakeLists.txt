@@ -42,10 +42,10 @@ GENERATE_EXPORT_HEADER(
 	EXPORT_FILE_NAME include/eng_Export.h
     STATIC_DEFINE eng_BUILT_AS_STATIC
 )
-target_include_directories(mex PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
-target_include_directories(mx PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
-target_include_directories(ut PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
-target_include_directories(eng PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+#target_include_directories(mex PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+#target_include_directories(mx PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+#target_include_directories(ut PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+#target_include_directories(eng PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 
 if (MATLAB_API_VERSION)
   target_compile_definitions(mex PUBLIC "APIVERSION=${MATLAB_API_VERSION}")

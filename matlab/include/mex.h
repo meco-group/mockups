@@ -1,7 +1,7 @@
 #ifndef mex_H
 #define mex_H
-#include "include/mex_Export.h"
-#include "include/mx_Export.h"
+#include "mex_Export.h"
+#include "mx_Export.h"
 
 
 extern "C"
