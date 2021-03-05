@@ -30,7 +30,7 @@ size_t mx_Export mxGetM(const mxArray *) {}
 mwSize mx_Export mxGetNumberOfDimensions(const mxArray *) {}
 mwSize mx_Export mxGetNumberOfElements(const mxArray *) {}
 int mx_Export mxGetNumberOfFields(const mxArray *) {}
-mxArray* mx_Export mxGetProperty(const mxArray *, const mwIndex, const char *) {}
+mxArray mx_Export *mxGetProperty(const mxArray *, const mwIndex, const char *) {}
 double mx_Export mxGetScalar(const mxArray *) {}
 int mx_Export mxGetString(const mxArray *, char *, mwSize) {}
 bool mx_Export mxIsCell(const mxArray *) {}

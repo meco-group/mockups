@@ -7,13 +7,20 @@ cmake_minimum_required(VERSION 3.1...3.16)
 project(matlab
   LANGUAGES CXX)
 
-add_library(mex SHARED src/mex.cpp include/mex.h include/mex_versions.h)
+add_library(mex SHARED src/mex.cpp include/mex.h include/mex_versions.h include/mex_Export.h)
 add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h include/matrix_versions.h include/mx_Export.h)
-add_library(ut SHARED src/ut.cpp)
-add_library(eng SHARED src/eng.cpp)
+add_library(ut SHARED src/ut.cpp include/ut_Export.h)
+add_library(eng SHARED src/eng.cpp include/eng_Export.h)
 
 include(GenerateExportHeader)
 
+GENERATE_EXPORT_HEADER(
+    mex
+    BASE_NAME mex
+	EXPORT_MACRO_NAME mex_Export
+	EXPORT_FILE_NAME include/mex_Export.h
+    STATIC_DEFINE mex_BUILT_AS_STATIC
+)
 GENERATE_EXPORT_HEADER(
     mx
     BASE_NAME mx
@@ -21,7 +28,24 @@ GENERATE_EXPORT_HEADER(
 	EXPORT_FILE_NAME include/mx_Export.h
     STATIC_DEFINE mx_BUILT_AS_STATIC
 )
+GENERATE_EXPORT_HEADER(
+    ut
+    BASE_NAME ut
+	EXPORT_MACRO_NAME ut_Export
+	EXPORT_FILE_NAME include/ut_Export.h
+    STATIC_DEFINE ut_BUILT_AS_STATIC
+)
+GENERATE_EXPORT_HEADER(
+    eng
+    BASE_NAME eng
+	EXPORT_MACRO_NAME eng_Export
+	EXPORT_FILE_NAME include/eng_Export.h
+    STATIC_DEFINE eng_BUILT_AS_STATIC
+)
+target_include_directories(mex PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 target_include_directories(mx PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+target_include_directories(ut PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
+target_include_directories(eng PRIVATE "${CMAKE_CURRENT_BINARY_DIR}")
 
 if (MATLAB_API_VERSION)
   target_compile_definitions(mex PUBLIC "APIVERSION=${MATLAB_API_VERSION}")
