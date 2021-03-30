@@ -20,6 +20,7 @@
 #define mxSetField mxSetField_700
 #define mxSetProperty mxSetProperty_700
 #define mxSetFieldByNumber mxSetFieldByNumber_700
+#define mxCreateCharArray mxCreateCharArray_700
 #endif // 700
 #if APIVERSION==730
 #define mxCreateCellMatrix mxCreateCellMatrix_730
@@ -43,6 +44,7 @@
 #define mxSetField mxSetField_730
 #define mxSetProperty mxSetProperty_730
 #define mxSetFieldByNumber mxSetFieldByNumber_730
+#define mxCreateCharArray mxCreateCharArray_730
 #endif // 730
 #if APIVERSION==800
 #define mxAddField mxAddField_800
@@ -91,4 +93,5 @@
 #define mxSetField mxSetField_800
 #define mxSetProperty mxSetProperty_800
 #define mxSetFieldByNumber mxSetFieldByNumber_800
+#define mxCreateCharArray mxCreateCharArray_800
 #endif // 800

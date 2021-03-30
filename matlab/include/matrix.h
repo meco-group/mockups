@@ -93,5 +93,6 @@ void mxSetCell(mxArray *, mwIndex, mxArray *);
 void mxSetField(mxArray *, mwIndex, const char *, mxArray *);
 void mxSetProperty(mxArray *, mwIndex, const char *, const mxArray *);
 void mxSetFieldByNumber(mxArray *, mwIndex, int, mxArray *);
+mxArray* mxCreateCharArray(mwSize, const mwSize *);
 
 #endif // matrix_H
