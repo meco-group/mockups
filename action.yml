@@ -1,0 +1,20 @@
+name: mockups
+description: Supply mockups for third-party libraries
+inputs:
+  os:
+    description: e.g. win64_vs2017
+    required: true
+    default: win64_vs2017
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        wget https://github.com/meco-group/mockups/releases/download/v3/mockups_win64_vs20170.zip
+        pwd
+        ls
+        echo $GITHUB_ACTION_PATH
+        ls $GITHUB_ACTION_PATH
+        unzip mockups_win64_vs20170.zip $GITHUB_ACTION_PATH/install
+        pwd
+        ls
+      shell: bash
