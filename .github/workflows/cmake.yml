@@ -31,7 +31,7 @@ jobs:
       run: zip -rq ${{github.workspace}}/mockups_${{env.TAG}}.zip ${{github.workspace}}/install
 
     - uses: actions/upload-artifact@v2.2.4
-      if: ${{ not startsWith(github.ref, 'refs/tags/') }}
+      if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
       with:
         name: artifacts
         path: ${{github.workspace}}/mockups_${{env.TAG}}.zip
