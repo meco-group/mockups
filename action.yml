@@ -17,4 +17,6 @@ runs:
         unzip mockups_${{ inputs.tag }}.zip $GITHUB_ACTION_PATH/install
         pwd
         ls
+        echo "MATLAB_ROOT=$GITHUB_ACTION_PATH/install/matlab" >> $GITHUB_ENV
       shell: bash
+      
