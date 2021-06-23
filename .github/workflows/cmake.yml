@@ -28,7 +28,7 @@ jobs:
         cd ..
       
     - name: zip
-      run: zip -rq ${{github.workspace}}/mockups_${{env.TAG}}.zip ${{github.workspace}}/install
+      run: 7z a  ${{github.workspace}}/mockups_${{env.TAG}}.zip ${{github.workspace}}/install
 
     - uses: actions/upload-artifact@v2.2.4
       if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
