@@ -17,7 +17,7 @@ void mxDestroyArray(mxArray *) { }
 mxArray *mxGetCell(const mxArray *, mwIndex) { return 0; }
 mxChar *mxGetChars(const mxArray *) { return 0; }
 mxClassID mxGetClassID(const mxArray *) { return mxUNKNOWN_CLASS; }
-void *mxGetData(const mxArray *) { }
+void *mxGetData(const mxArray *) { return 0; }
 const mwSize *mxGetDimensions(const mxArray *) { return 0; }
 mxArray *mxGetField(const mxArray *, mwIndex, const char *) { return 0; }
 mxArray *mxGetFieldByNumber(const mxArray *, mwIndex, int) { return 0; }
@@ -46,4 +46,4 @@ void mxSetCell(mxArray *, mwIndex, mxArray *) { }
 void mxSetField(mxArray *, mwIndex, const char *, mxArray *) { }
 void mxSetProperty(mxArray *, mwIndex, const char *, const mxArray *) { }
 void mxSetFieldByNumber(mxArray *, mwIndex, int, mxArray *) {  }
-mxArray *mxCreateCharArray(mwSize, const mwSize *) { }
+mxArray *mxCreateCharArray(mwSize, const mwSize *) { return 0; }
