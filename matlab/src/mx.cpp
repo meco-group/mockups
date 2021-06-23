@@ -16,7 +16,7 @@ mxArray *mxCreateStructMatrix(mwSize, mwSize, int, const char **) { return 0; }
 void mxDestroyArray(mxArray *) { }
 mxArray *mxGetCell(const mxArray *, mwIndex) { return 0; }
 mxChar *mxGetChars(const mxArray *) { return 0; }
-mxClassID mxGetClassID(const mxArray *) { return 0; }
+mxClassID mxGetClassID(const mxArray *) { return mxUNKNOWN_CLASS; }
 void *mxGetData(const mxArray *) { }
 const mwSize *mxGetDimensions(const mxArray *) { return 0; }
 mxArray *mxGetField(const mxArray *, mwIndex, const char *) { return 0; }
