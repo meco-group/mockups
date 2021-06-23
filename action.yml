@@ -9,7 +9,7 @@ runs:
   using: "composite"
   steps:
     - run: |
-        wget https://github.com/meco-group/mockups/releases/download/v3/mockups_${{ inputs.tag }}.zip
+        curl https://github.com/meco-group/mockups/releases/download/v3/mockups_${{ inputs.tag }}.zip
         pwd
         ls
         echo $GITHUB_ACTION_PATH
