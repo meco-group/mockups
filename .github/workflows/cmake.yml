@@ -9,6 +9,7 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
+  TAG: win64_vs2017
 
 jobs:
   build:
@@ -17,14 +18,28 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Configure CMake
+    - name: Build
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: |
         cd matlab
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
-    - name: Build
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install
+        cmake --build ${{github.workspace}}/build --target install --config ${{env.BUILD_TYPE}}
+        cd ..
       
+    - name: zip
+      run: zip -rq ${{github.workspace}}/mockups_${{env.TAG}}.zip ${{github.workspace}}/install
+
+    - uses: actions/upload-artifact@v2.2.4
+      if: not startsWith(github.ref, 'refs/tags/')
+      with:
+        name: artifacts
+        path: ${{github.workspace}}/mockups_${{env.TAG}}.zip
+        
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files:  ${{github.workspace}}/mockups_${{env.TAG}}.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
