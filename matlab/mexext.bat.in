@@ -1,0 +1,1 @@
+echo ${MATLAB_MEX_EXT}

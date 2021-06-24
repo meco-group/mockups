@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.1...3.16)
 # https://dominikberner.ch/cmake-interface-lib/
 
 project(matlab
-  LANGUAGES CXX)
+  LANGUAGES C CXX)
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
@@ -38,7 +38,24 @@ elseif(${CMAKE_GENERATOR} MATCHES "MSYS Makefiles")
   set(RUNTIME_DIR bin/win${NBITS_TWO})
 endif()
 
-install(TARGETS mex mx ut eng EXPORT matlabTargets
+if(APPLE)
+  set(MATLAB_MEX_EXT "mexi${NBITS_TWO}")
+elseif(WIN32)
+  target_compile_definitions(matlab INTERFACE __STDC_UTF_16__ WINMAT64)
+  set(MATLAB_MEX_EXT "mexw${NBITS_TWO}")
+else()
+  set(MATLAB_MEX_EXT "mexa${NBITS_TWO}")
+endif()
+
+if(WIN32)
+  configure_file(mexext.bat.in mexext.bat)
+  install(FILES ${CMAKE_BINARY_DIR}/mexext.bat DESTINATION bin)
+else()
+  add_executable(mexext src/mexext.c)
+  target_compile_definitions(mexext PRIVATE MATLAB_MEX_EXT=\"${MATLAB_MEX_EXT}\")
+endif()
+
+install(TARGETS mex mx ut eng mexext EXPORT matlabTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION ${ARCHIVE_DIR}
   RUNTIME DESTINATION ${RUNTIME_DIR}
@@ -50,14 +67,8 @@ target_link_libraries(matlab INTERFACE mex mx ut eng)
 
 
 
-if(APPLE)
-  set(MATLAB_MEX_EXT "mexi64")
-elseif(WIN32)
-  target_compile_definitions(matlab INTERFACE __STDC_UTF_16__ WINMAT64)
-  set(MATLAB_MEX_EXT "mexw64")
-else()
-  set(MATLAB_MEX_EXT "mexa64")
-endif()
+
+
 
 target_include_directories(mex PUBLIC
   $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
