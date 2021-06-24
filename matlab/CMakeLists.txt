@@ -23,7 +23,7 @@ endif()
 set_target_properties(mex mx ut eng PROPERTIES CXX_STANDARD 11)
 
 if(WIN32)
-  set_target_properties(mex mx ut eng PROPERTIES PREFIX "lib")
+  set_target_properties(mex mx ut eng PROPERTIES PREFIX "lib" IMPORT_PREFIX "lib")
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
