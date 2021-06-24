@@ -14,12 +14,17 @@ add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h include/matrix_v
 add_library(ut SHARED src/ut.cpp)
 add_library(eng SHARED src/eng.cpp)
 
+
 if (MATLAB_API_VERSION)
   target_compile_definitions(mex PUBLIC "APIVERSION=${MATLAB_API_VERSION}")
   target_compile_definitions(mx PUBLIC "APIVERSION=${MATLAB_API_VERSION}")
 endif()
 
 set_target_properties(mex mx ut eng PROPERTIES CXX_STANDARD 11)
+
+if(WIN32)
+  set_target_properties(mex mx ut eng PROPERTIES PREFIX "lib")
+endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
   set(NBITS_TWO "32")
