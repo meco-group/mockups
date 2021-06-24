@@ -10,13 +10,8 @@ runs:
   steps:
     - run: |
         curl -OL https://github.com/meco-group/mockups/releases/download/v3/mockups_${{ inputs.tag }}.zip
-        pwd
-        ls
-        echo $GITHUB_ACTION_PATH
-        ls $GITHUB_ACTION_PATH
-        unzip mockups_${{ inputs.tag }}.zip $GITHUB_ACTION_PATH/install
-        pwd
-        ls
-        echo "MATLAB_ROOT=$GITHUB_ACTION_PATH/install/matlab" >> $GITHUB_ENV
+        unzip mockups_${{ inputs.tag }}.zip mockups
+        ls mockups
+        echo "MATLAB_ROOT=$GITHUB_ACTION_PATH/mockups/matlab" >> $GITHUB_ENV
       shell: bash
       
