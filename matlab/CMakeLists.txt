@@ -21,12 +21,11 @@ endif()
 
 set_target_properties(mex mx ut eng PROPERTIES CXX_STANDARD 11)
 
-#if(CMAKE_SIZEOF_VOID_P EQUAL 4)
-#  set(NBITS_TWO "32")
-#elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
-#  set(NBITS_TWO "64")
-#endif()
-set(NBITS_TWO "64")
+if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+  set(NBITS_TWO "32")
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  set(NBITS_TWO "64")
+endif()
 
 set(ARCHIVE_DIR lib)
 set(RUNTIME_DIR bin)
