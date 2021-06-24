@@ -19,11 +19,19 @@ endif()
 
 set_target_properties(mex mx ut eng PROPERTIES CXX_STANDARD 11)
 
+
+if(${CMAKE_GENERATOR} MATCHES "Visual Studio*")
+  set(RUNTIME_DIR extern/lib/win32/microsoft)
+else()
+  set(RUNTIME_DIR bin)
+endif()
+
 install(TARGETS mex mx ut eng EXPORT matlabTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION ${RUNTIME_DIR}
   INCLUDES DESTINATION include)
+
 
 add_library(matlab INTERFACE)
 target_link_libraries(matlab INTERFACE mex mx ut eng)
