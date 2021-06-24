@@ -21,9 +21,9 @@ endif()
 
 set_target_properties(mex mx ut eng PROPERTIES CXX_STANDARD 11)
 
-if(CMAKE_SIZEOF_VOID_P MATCHES "4")
+if(CMAKE_SIZEOF_VOID_P EQUAL 4)
   set(NBITS_TWO "32")
-elseif(CMAKE_SIZEOF_VOID_P MATCHES "8")
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
   set(NBITS_TWO "64")
 endif()
 
@@ -31,11 +31,11 @@ set(ARCHIVE_DIR lib)
 set(RUNTIME_DIR bin)
   
 if(${CMAKE_GENERATOR} MATCHES "Visual Studio*")
-  set(RUNTIME_DIR extern/lib/win${NBITS_TWO}/microsoft)
-  set(ARCHIVE_DIR bin/win${NBITS_TWO})
+  set(ARCHIVE_DIR extern/lib/win${NBITS_TWO}/microsoft)
+  set(RUNTIME_DIR bin/win${NBITS_TWO})
 elseif(${CMAKE_GENERATOR} MATCHES "MSYS Makefiles")
-  set(RUNTIME_DIR extern/lib/win${NBITS_TWO}/mingw${NBITS_TWO})
-  set(ARCHIVE_DIR bin/win${NBITS_TWO})
+  set(ARCHIVE_DIR extern/lib/win${NBITS_TWO}/mingw${NBITS_TWO})
+  set(RUNTIME_DIR bin/win${NBITS_TWO})
 endif()
 
 install(TARGETS mex mx ut eng EXPORT matlabTargets
