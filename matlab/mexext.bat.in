@@ -1,1 +1,1 @@
-echo ${MATLAB_MEX_EXT}
+echo "${MATLAB_MEX_EXT}"
