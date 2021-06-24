@@ -46,7 +46,6 @@ endif()
 if(APPLE)
   set(MATLAB_MEX_EXT "mexi${NBITS_TWO}")
 elseif(WIN32)
-  target_compile_definitions(matlab INTERFACE __STDC_UTF_16__ WINMAT64)
   set(MATLAB_MEX_EXT "mexw${NBITS_TWO}")
 else()
   set(MATLAB_MEX_EXT "mexa${NBITS_TWO}")
@@ -74,10 +73,9 @@ install(TARGETS ${LIBRARIES} EXPORT matlabTargets
 add_library(matlab INTERFACE)
 target_link_libraries(matlab INTERFACE mex mx ut eng)
 
-
-
-
-
+if(WIN32)
+  target_compile_definitions(matlab INTERFACE __STDC_UTF_16__ WINMAT64)
+endif()
 
 target_include_directories(mex PUBLIC
   $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
