@@ -52,15 +52,19 @@ else()
   set(MATLAB_MEX_EXT "mexa${NBITS_TWO}")
 endif()
 
+
+set(LIBRARIES mex mx ut eng)
+
 if(WIN32)
   configure_file(mexext.bat.in mexext.bat)
   install(FILES ${CMAKE_BINARY_DIR}/mexext.bat DESTINATION bin)
 else()
   add_executable(mexext src/mexext.c)
   target_compile_definitions(mexext PRIVATE MATLAB_MEX_EXT=\"${MATLAB_MEX_EXT}\")
+  set(LIBRARIES ${LIBRARIES} mexext)
 endif()
 
-install(TARGETS mex mx ut eng mexext EXPORT matlabTargets
+install(TARGETS ${LIBRARIES} EXPORT matlabTargets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION ${ARCHIVE_DIR}
   RUNTIME DESTINATION ${RUNTIME_DIR}
