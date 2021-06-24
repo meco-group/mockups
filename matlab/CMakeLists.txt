@@ -25,7 +25,7 @@ if(CMAKE_SIZEOF_VOID_P MATCHES "4")
   set(NBITS_TWO "32")
 elseif(CMAKE_SIZEOF_VOID_P MATCHES "8")
   set(NBITS_TWO "64")
-end()
+endif()
 
 set(ARCHIVE_DIR lib)
 set(RUNTIME_DIR bin)
