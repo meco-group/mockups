@@ -24,7 +24,7 @@ jobs:
         cd ..
       
     - name: zip
-      run: zip -rq $GITHUB_WORKSPACE/casadi_source.zip $GITHUB_WORKSPACE/install
+      run: zip -rq casadi_source.zip install
       shell: bash
 
     - uses: actions/upload-artifact@v2.2.4
