@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 int main() {
-  printf(MATLAB_MEX_EXT "\n");
+  printf("Mockup mex\n");
   return 0;
 }
