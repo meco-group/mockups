@@ -20,10 +20,6 @@ int mexPrintf(const char*, ...);
 void mexLock(void);
 int mexAtExit(void (*)(void));
 
-bool utIsInterruptPending(void);
-void utSetInterruptPending(bool);
-
-
 }
 
 #endif // mex_H
