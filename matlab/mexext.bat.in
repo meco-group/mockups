@@ -1,1 +1,2 @@
+@echo off
 echo "${MATLAB_MEX_EXT}"
