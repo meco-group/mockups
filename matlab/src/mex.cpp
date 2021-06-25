@@ -6,3 +6,4 @@ void mexWarnMsgIdAndTxt(const char *, const char *, ...) {}
 int mexPrintf(const char*, ...) { return 0; }
 void mexLock(void) {}
 int mexAtExit(void (*)(void)) { return 0; }
+int mexEvalString(const char *command) { return 0; }
