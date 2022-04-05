@@ -9,7 +9,7 @@ project(matlab
 
 add_library(mex SHARED src/mex.cpp include/mex.h include/mex_versions.h include/mex_Export.h)
 add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h include/matrix_versions.h include/mx_Export.h)
-add_library(ut SHARED src/ut.cpp include/ut_Export.h)
+add_library(ut SHARED src/ut.cpp include/ut.h include/ut_Export.h)
 add_library(eng SHARED src/eng.cpp include/eng_Export.h)
 
 include(GenerateExportHeader)
@@ -75,6 +75,11 @@ else()
 endif()
 
 target_include_directories(mex PUBLIC
+  $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+target_include_directories(ut PUBLIC
   $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
