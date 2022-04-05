@@ -7,7 +7,3 @@ int mex_Export mexPrintf(const char*, ...) {}
 void mex_Export mexLock(void) {}
 int mex_Export mexAtExit(void (*)(void)) {}
 int mexEvalString(const char *) {}
-
-// Undocumented Matlab API
-bool utIsInterruptPending(void) { return true; }
-void utSetInterruptPending(bool) {}
