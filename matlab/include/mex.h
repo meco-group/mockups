@@ -22,6 +22,10 @@ void mex_Export mexLock(void);
 int mex_Export mexAtExit(void (*)(void));
 int mex_Export mexEvalString(const char *);
 
+// Undocumented Matlab API
+bool utIsInterruptPending(void);
+void utSetInterruptPending(bool);
+
 }
 
 #endif // mex_H
