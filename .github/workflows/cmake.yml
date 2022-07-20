@@ -8,6 +8,29 @@ env:
   TAG: win64_vs2017
 
 jobs:
+  build-dockcross:
+    runs-on: ubuntu-20.04
+    env:
+      arch: manylinux1-x64
+      BUILD_TYPE: Release
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 0 # for git-restore-mtime
+      - name: Setup dockcross
+        run: |
+          docker pull dockcross/${{ matrix.arch }}:latest
+          docker run --rm dockcross/${{ matrix.arch }}:latest > dockcross
+          chmod +x dockcross
+      - name: Build
+        # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+        # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+        run: |
+          cd matlab
+          ./dockcross cmake -B /work/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DCMAKE_INSTALL_PREFIX=/work/install
+          ./dockcross cmake --build /work/build --target install --config ${{env.BUILD_TYPE}}
+          cd ..
+          
   build:
     runs-on: windows-2016
 
