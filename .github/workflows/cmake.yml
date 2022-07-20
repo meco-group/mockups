@@ -30,8 +30,8 @@ jobs:
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         run: |
           cd matlab
-          ./dockcross cmake -B /work/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DCMAKE_INSTALL_PREFIX=/work/install
-          ./dockcross cmake --build /work/build --target install --config ${{env.BUILD_TYPE}}
+          ../dockcross cmake -B /work/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DCMAKE_INSTALL_PREFIX=/work/install
+          ../dockcross cmake --build /work/build --target install --config ${{env.BUILD_TYPE}}
           cd ..
           
   build:
