@@ -39,7 +39,7 @@ jobs:
         with:
           files: install/
           recursive: true
-          dest: ${{github.workspace}}/mockups-${{matrix.arch}}.zip
+          dest: mockups-${{matrix.arch}}.zip
       - run: ls ${{github.workspace}}
 
       - uses: actions/upload-artifact@v2.2.4
