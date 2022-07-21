@@ -15,7 +15,7 @@ jobs:
       BUILD_TYPE: Release
     strategy:
       matrix:
-        arch: ["manylinux1-x64"]
+        arch: [manylinux1-x64,manylinux1-x86,manylinux2014-x64,manylinux2014-x86,windows-shared-x64-posix]
     steps:
       - uses: actions/checkout@v2.4.0
         with:
