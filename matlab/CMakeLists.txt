@@ -7,6 +7,15 @@ cmake_minimum_required(VERSION 3.1...3.16)
 project(matlab
   LANGUAGES C CXX)
 
+set(INSTALL_PREFIX  "")
+
+get_directory_property(hasParent PARENT_DIRECTORY)
+if(hasParent)
+  set(INSTALL_PREFIX "${PROJECT_NAME}/")
+endif()
+  
+  
+
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 add_library(mex SHARED src/mex.cpp include/mex.h include/mex_versions.h)
@@ -68,10 +77,9 @@ else()
 endif()
 
 install(TARGETS ${LIBRARIES} EXPORT matlabTargets
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION ${ARCHIVE_DIR}
-  RUNTIME DESTINATION ${RUNTIME_DIR}
-  INCLUDES DESTINATION include)
+  LIBRARY DESTINATION ${INSTALL_PREFIX}lib
+  ARCHIVE DESTINATION ${INSTALL_PREFIX}${ARCHIVE_DIR}
+  RUNTIME DESTINATION ${INSTALL_PREFIX}${RUNTIME_DIR})
 
 
 add_library(matlab INTERFACE)
@@ -81,28 +89,30 @@ if(WIN32)
   target_compile_definitions(matlab INTERFACE __STDC_UTF_16__ WINMAT64)
 endif()
 
+install(TARGETS matlab EXPORT matlabTargets
+  LIBRARY DESTINATION ${INSTALL_PREFIX}lib
+  ARCHIVE DESTINATION ${INSTALL_PREFIX}lib
+  RUNTIME DESTINATION ${INSTALL_PREFIX}bin
+  INCLUDES DESTINATION ${INSTALL_PREFIX}include)
+
 target_include_directories(mex PUBLIC
   $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
+  $<INSTALL_INTERFACE:${INSTALL_PREFIX}include>
 )
 
 target_include_directories(mx PUBLIC
   $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
+  $<INSTALL_INTERFACE:${INSTALL_PREFIX}include>
 )
 
 target_include_directories(matlab INTERFACE
   $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
+  $<INSTALL_INTERFACE:${INSTALL_PREFIX}include>
 )
 
-install(TARGETS matlab EXPORT matlabTargets
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib
-  RUNTIME DESTINATION bin
-  INCLUDES DESTINATION include)
 
-install(DIRECTORY include/ DESTINATION include)
+
+install(DIRECTORY include/ DESTINATION ${INSTALL_PREFIX}include)
 
 install(EXPORT matlabTargets
   FILE matlabTargets.cmake
@@ -123,7 +133,9 @@ configure_package_config_file(
   cmake)
 
 
+
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/matlabConfigVersion.cmake"
   DESTINATION cmake
 )
+
 
