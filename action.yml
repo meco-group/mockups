@@ -9,9 +9,10 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -OL https://github.com/meco-group/mockups/releases/download/v15/mockups_${{ inputs.tag }}.zip
+        curl -OL https://github.com/meco-group/mockups/releases/download/v16/mockups_${{ inputs.tag }}.zip
         unzip mockups_${{ inputs.tag }}.zip -d mockups
         ls mockups
         echo "MATLAB_ROOT=$GITHUB_WORKSPACE\\mockups" >> $GITHUB_ENV
+        echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$GITHUB_WORKSPACE\\mockups" >> $GITHUB_ENV
       shell: bash
       
