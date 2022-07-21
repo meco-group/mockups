@@ -69,7 +69,7 @@ set(LIBRARIES mex mx ut eng)
 
 if(WIN32)
   configure_file(mexext.bat.in mexext.bat)
-  install(FILES ${CMAKE_BINARY_DIR}/mexext.bat DESTINATION bin)
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/mexext.bat DESTINATION bin)
   install(FILES mex.bat DESTINATION bin)
 else()
   add_executable(mexext src/mexext.c)
