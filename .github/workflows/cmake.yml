@@ -39,20 +39,20 @@ jobs:
         with:
           files: install/
           recursive: true
-          dest: mockups-${{matrix.arch}}.zip
+          dest: mockups_${{matrix.arch}}.zip
       - run: ls ${{github.workspace}}
 
       - uses: actions/upload-artifact@v2.2.4
         if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
         with:
           name: artifacts
-          path: ${{github.workspace}}/mockups-${{matrix.arch}}.zip
+          path: ${{github.workspace}}/mockups_${{matrix.arch}}.zip
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files:  ${{github.workspace}}/mockups-${{matrix.arch}}.zip
+          files:  ${{github.workspace}}/mockups_${{matrix.arch}}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
