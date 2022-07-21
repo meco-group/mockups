@@ -32,11 +32,13 @@ jobs:
           ./dockcross cmake -B /work/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DCMAKE_INSTALL_PREFIX=/work/install
           ./dockcross cmake --build /work/build --target install --config ${{env.BUILD_TYPE}}
 
+      - run: ls ${{github.workspace}}/install
+      
       - name: Easy Zip Files
         uses: vimtor/action-zip@v1
         with:
           files: install/
-          recursive: false
+          recursive: true
           dest: ${{github.workspace}}/mockups-${{matrix.arch}}.zip
       - run: ls ${{github.workspace}}
 
