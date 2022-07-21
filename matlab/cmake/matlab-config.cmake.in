@@ -11,3 +11,5 @@ elseif(WIN32)
 else()
   set(MATLAB_MEX_EXT "mexa64")
 endif()
+
+set(MEX_VERSION_FILE "${PACKAGE_PREFIX_DIR}/@INSTALL_PREFIX@src/c_mexapi_version.c")

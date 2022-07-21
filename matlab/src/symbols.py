@@ -36,7 +36,7 @@ for header in ["matrix","mex"]:
   with open('../include/{header}_versions.h'.format(header=header),'w') as f:
     for v in sorted(list(versions)):
       if v==0: continue
-      f.write("#if APIVERSION=={v}\n".format(v=v))
+      f.write("#if MATLAB_API_VERSION=={v}\n".format(v=v))
       for name in names:  
         if v in symboltable[name]:
           f.write("#define {name} {name}_{v}\n".format(name=name,v=v))

@@ -23,10 +23,14 @@ add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h include/matrix_v
 add_library(ut SHARED src/ut.cpp)
 add_library(eng SHARED src/eng.cpp)
 
+if (NOT MATLAB_API_VERSION)
+  set(MATLAB_API_VERSION 800)
+endif()
+
 
 if (MATLAB_API_VERSION)
-  target_compile_definitions(mex PUBLIC "APIVERSION=${MATLAB_API_VERSION}")
-  target_compile_definitions(mx PUBLIC "APIVERSION=${MATLAB_API_VERSION}")
+  target_compile_definitions(mex PUBLIC "MATLAB_API_VERSION=${MATLAB_API_VERSION}")
+  target_compile_definitions(mx PUBLIC "MATLAB_API_VERSION=${MATLAB_API_VERSION}")
 endif()
 
 set_target_properties(mex mx ut eng PROPERTIES CXX_STANDARD 11)
@@ -138,4 +142,7 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake" "${CMAK
   DESTINATION cmake
 )
 
+install(FILES src/c_mexapi_version.c
+  DESTINATION ${INSTALL_PREFIX}src
+)
 

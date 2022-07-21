@@ -1,4 +1,4 @@
-#if APIVERSION==700
+#if MATLAB_API_VERSION==700
 #define mxCreateCellMatrix mxCreateCellMatrix_700
 #define mxCreateCharMatrixFromStrings mxCreateCharMatrixFromStrings_700
 #define mxCreateDoubleMatrix mxCreateDoubleMatrix_700
@@ -22,7 +22,7 @@
 #define mxSetFieldByNumber mxSetFieldByNumber_700
 #define mxCreateCharArray mxCreateCharArray_700
 #endif // 700
-#if APIVERSION==730
+#if MATLAB_API_VERSION==730
 #define mxCreateCellMatrix mxCreateCellMatrix_730
 #define mxCreateCharMatrixFromStrings mxCreateCharMatrixFromStrings_730
 #define mxCreateDoubleMatrix mxCreateDoubleMatrix_730
@@ -46,7 +46,7 @@
 #define mxSetFieldByNumber mxSetFieldByNumber_730
 #define mxCreateCharArray mxCreateCharArray_730
 #endif // 730
-#if APIVERSION==800
+#if MATLAB_API_VERSION==800
 #define mxAddField mxAddField_800
 #define mxArrayToString mxArrayToString_800
 #define mxCreateCellMatrix mxCreateCellMatrix_800
