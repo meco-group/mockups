@@ -13,6 +13,6 @@ runs:
         unzip mockups_${{ inputs.tag }}.zip -d mockups
         ls mockups
         echo "MATLAB_ROOT=$GITHUB_WORKSPACE\\mockups" >> $GITHUB_ENV
-        echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$GITHUB_WORKSPACE\\mockups" >> $GITHUB_ENV
+        echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$GITHUB_WORKSPACE/mockups" >> $GITHUB_ENV
       shell: bash
       
