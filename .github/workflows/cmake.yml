@@ -56,7 +56,7 @@ jobs:
           files:  ${{github.workspace}}/mockups_${{matrix.arch}}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     
+
   build-osx:
     runs-on: ${{matrix.image == 'macos-m1' && 'self-hosted' || matrix.image }}
     env:
