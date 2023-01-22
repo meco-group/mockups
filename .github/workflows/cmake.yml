@@ -18,7 +18,7 @@ jobs:
       matrix:
         arch: [manylinux1-x64,manylinux1-x86,manylinux2014-x64,manylinux2014-x86,windows-shared-x64-posix]
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3.3.0
         with:
           fetch-depth: 0 # for git-restore-mtime
       - name: Setup dockcross
@@ -36,27 +36,71 @@ jobs:
       - run: ls ${{github.workspace}}/install
       
       - name: Easy Zip Files
-        uses: vimtor/action-zip@v1
+        uses: vimtor/action-zip@v1.1
         with:
           files: install/
           recursive: true
           dest: mockups_${{matrix.arch}}.zip
       - run: ls ${{github.workspace}}
 
-      - uses: actions/upload-artifact@v2.2.4
+      - uses: actions/upload-artifact@v3.1.2
         if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
         with:
           name: artifacts
           path: ${{github.workspace}}/mockups_${{matrix.arch}}.zip
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v0.1.15
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files:  ${{github.workspace}}/mockups_${{matrix.arch}}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+     
+  build-osx:
+    runs-on: ${{matrix.image == 'macos-m1' && 'self-hosted' || matrix.image }}
+    env:
+      arch: manylinux1-x64
+      BUILD_TYPE: Release
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [macos-11,macos-m1]
+    steps:
+      - uses: actions/checkout@v3.3.0
+        with:
+          fetch-depth: 0 # for git-restore-mtime
+      - name: Build
+        # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
+        # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install
+          cmake --build build --target install --config ${{env.BUILD_TYPE}}
+
+      - run: ls ${{github.workspace}}/install
+      
+      - name: Easy Zip Files
+        uses: vimtor/action-zip@v1.1
+        with:
+          files: install/
+          recursive: true
+          dest: mockups_${{matrix.image}}.zip
+      - run: ls ${{github.workspace}}
+
+      - uses: actions/upload-artifact@v3.1.2
+        if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
+        with:
+          name: artifacts
+          path: ${{github.workspace}}/mockups_${{matrix.image}}.zip
+
+      - name: Release
+        uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files:  ${{github.workspace}}/mockups_${{matrix.image}}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     
   build:
     runs-on: windows-2016
 
@@ -75,14 +119,14 @@ jobs:
     - name: zip
       run: 7z a ${{github.workspace}}/mockups_${{env.TAG}}.zip ${{github.workspace}}/install/*
 
-    - uses: actions/upload-artifact@v2.2.4
+    - uses: actions/upload-artifact@v3.1.2
       if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
       with:
         name: artifacts
         path: ${{github.workspace}}/mockups_${{env.TAG}}.zip
         
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v0.1.15
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files:  ${{github.workspace}}/mockups_${{env.TAG}}.zip
