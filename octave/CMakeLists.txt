@@ -103,8 +103,3 @@ configure_package_config_file(
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}-config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/octaveConfigVersion.cmake"
   DESTINATION cmake
 )
-
-install(FILES src/c_mexapi_version.c
-  DESTINATION ${INSTALL_PREFIX}src
-)
-
