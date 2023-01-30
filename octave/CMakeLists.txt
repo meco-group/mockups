@@ -54,9 +54,9 @@ install(TARGETS ${LIBRARIES} EXPORT octaveTargets
 
 
 add_library(octave INTERFACE)
-target_link_libraries(octave INTERFACE octinterp)
 
 if(WIN32)
+  target_link_libraries(octave INTERFACE octinterp)
   target_compile_definitions(octave INTERFACE __STDC_UTF_16__ WINMAT64)
 endif()
 
