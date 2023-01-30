@@ -102,6 +102,8 @@ mxArray* mxCreateCharArray(mwSize, const mwSize *);
 // methods
 int mexCallMATLAB(int, mxArray *[], int, mxArray *[], const char *);
 mxArray *mexCallMATLABWithTrap(int, mxArray *[], int, mxArray *[], const char *);
+void mexErrMsgIdAndTxt(const char *, const char *, ...);
+void mexErrMsgTxt(const char *);
 int mexEvalString(const char *);
 void mexWarnMsgIdAndTxt(const char *, const char *, ...);
 int mexPrintf(const char*, ...);
