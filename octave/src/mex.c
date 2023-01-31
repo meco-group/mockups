@@ -1,65 +1,65 @@
 
-
+#include "mex.h"
 #ifdef _WIN32
 #include <libloaderapi.h>
 #include <stdio.h>
 
-int (*adaptor_mxAddField)(mxArray *, const char *) = NULL;
-char* (*adaptor_mxArrayToString)(const mxArray *) = NULL;
-mxArray* (*adaptor_mxCreateCellMatrix)(mwSize, mwSize) = NULL;
-mxArray* (*adaptor_mxCreateCharMatrixFromStrings)(mwSize, const char **) = NULL;
-mxArray* (*adaptor_mxCreateDoubleMatrix)(mwSize, mwSize, mxComplexity) = NULL;
-mxArray* (*adaptor_mxCreateDoubleScalar)(double) = NULL;
-mxArray* (*adaptor_mxCreateLogicalMatrix)(mwSize, mwSize) = NULL;
-mxArray* (*adaptor_mxCreateLogicalScalar)(bool) = NULL;
-mxArray* (*adaptor_mxCreateNumericArray)(mwSize, const mwSize *, mxClassID, mxComplexity) = NULL;
-mxArray* (*adaptor_mxCreateNumericMatrix)(mwSize, mwSize, mxClassID, mxComplexity) = NULL;
-mxArray* (*adaptor_mxCreateSparse)(mwSize, mwSize, mwSize, mxComplexity) = NULL;
-mxArray* (*adaptor_mxCreateString)(const char *) = NULL;
-mxArray* (*adaptor_mxCreateStructMatrix)(mwSize, mwSize, int, const char **) = NULL;
-void (*adaptor_mxDestroyArray)(mxArray *) = NULL;
-mxArray* (*adaptor_mxGetCell)(const mxArray *, mwIndex) = NULL;
-mxChar* (*adaptor_mxGetChars)(const mxArray *) = NULL;
-mxClassID (*adaptor_mxGetClassID)(const mxArray *) = NULL;
-void* (*adaptor_mxGetData)(const mxArray *) = NULL;
-const mwSize* (*adaptor_mxGetDimensions)(const mxArray *) = NULL;
-mxArray* (*adaptor_mxGetField)(const mxArray *, mwIndex, const char *) = NULL;
-mxArray* (*adaptor_mxGetFieldByNumber)(const mxArray *, mwIndex, int) = NULL;
-const char* (*adaptor_mxGetFieldNameByNumber)(const mxArray *, int) = NULL;
-mwIndex* (*adaptor_mxGetIr)(const mxArray *) = NULL;
-mwIndex* (*adaptor_mxGetJc)(const mxArray *) = NULL;
-size_t (*adaptor_mxGetN)(const mxArray *) = NULL;
-size_t (*adaptor_mxGetM)(const mxArray *) = NULL;
-mwSize (*adaptor_mxGetNumberOfDimensions)(const mxArray *) = NULL;
-mwSize (*adaptor_mxGetNumberOfElements)(const mxArray *) = NULL;
-int (*adaptor_mxGetNumberOfFields)(const mxArray *) = NULL;
-mxArray* (*adaptor_mxGetProperty)(const mxArray *, const mwIndex, const char *) = NULL;
-double (*adaptor_mxGetScalar)(const mxArray *) = NULL;
-int (*adaptor_mxGetString)(const mxArray *, char *, mwSize) = NULL;
-bool (*adaptor_mxIsCell)(const mxArray *) = NULL;
-bool (*adaptor_mxIsChar)(const mxArray *) = NULL;
-bool (*adaptor_mxIsComplex)(const mxArray *) = NULL;
-bool (*adaptor_mxIsDouble)(const mxArray *) = NULL;
-bool (*adaptor_mxIsLogical)(const mxArray *) = NULL;
-bool (*adaptor_mxIsLogicalScalar)(const mxArray *) = NULL;
-bool (*adaptor_mxIsLogicalScalarTrue)(const mxArray *) = NULL;
-bool (*adaptor_mxIsNumeric)(const mxArray *) = NULL;
-bool (*adaptor_mxIsSparse)(const mxArray *) = NULL;
-bool (*adaptor_mxIsStruct)(const mxArray *) = NULL;
-void (*adaptor_mxSetCell)(mxArray *, mwIndex, mxArray *) = NULL;
-void (*adaptor_mxSetField)(mxArray *, mwIndex, const char *, mxArray *) = NULL;
-void (*adaptor_mxSetProperty)(mxArray *, mwIndex, const char *, const mxArray *) = NULL;
-void (*adaptor_mxSetFieldByNumber)(mxArray *, mwIndex, int, mxArray *) = NULL;
-mxArray* (*adaptor_mxCreateCharArray)(mwSize, const mwSize *) = NULL;
-int (*adaptor_mexCallMATLAB)(int, mxArray *[], int, mxArray *[], const char *) = NULL;
-mxArray* (*adaptor_mexCallMATLABWithTrap)(int, mxArray *[], int, mxArray *[], const char *) = NULL;
-void (*adaptor_mexErrMsgIdAndTxt)(const char *, const char *, ...) = NULL;
-void (*adaptor_mexErrMsgTxt)(const char *) = NULL;
-int (*adaptor_mexEvalString)(const char *) = NULL;
-void (*adaptor_mexWarnMsgIdAndTxt)(const char *, const char *, ...) = NULL;
-int (*adaptor_mexPrintf)(const char*, ...) = NULL;
-void (*adaptor_mexLock)(void) = NULL;
-int (*adaptor_mexAtExit)(void (*)(void)) = NULL;
+int (*mxAddField)(mxArray *, const char *) = NULL;
+char* (*mxArrayToString)(const mxArray *) = NULL;
+mxArray* (*mxCreateCellMatrix)(mwSize, mwSize) = NULL;
+mxArray* (*mxCreateCharMatrixFromStrings)(mwSize, const char **) = NULL;
+mxArray* (*mxCreateDoubleMatrix)(mwSize, mwSize, mxComplexity) = NULL;
+mxArray* (*mxCreateDoubleScalar)(double) = NULL;
+mxArray* (*mxCreateLogicalMatrix)(mwSize, mwSize) = NULL;
+mxArray* (*mxCreateLogicalScalar)(bool) = NULL;
+mxArray* (*mxCreateNumericArray)(mwSize, const mwSize *, mxClassID, mxComplexity) = NULL;
+mxArray* (*mxCreateNumericMatrix)(mwSize, mwSize, mxClassID, mxComplexity) = NULL;
+mxArray* (*mxCreateSparse)(mwSize, mwSize, mwSize, mxComplexity) = NULL;
+mxArray* (*mxCreateString)(const char *) = NULL;
+mxArray* (*mxCreateStructMatrix)(mwSize, mwSize, int, const char **) = NULL;
+void (*mxDestroyArray)(mxArray *) = NULL;
+mxArray* (*mxGetCell)(const mxArray *, mwIndex) = NULL;
+mxChar* (*mxGetChars)(const mxArray *) = NULL;
+mxClassID (*mxGetClassID)(const mxArray *) = NULL;
+void* (*mxGetData)(const mxArray *) = NULL;
+const mwSize* (*mxGetDimensions)(const mxArray *) = NULL;
+mxArray* (*mxGetField)(const mxArray *, mwIndex, const char *) = NULL;
+mxArray* (*mxGetFieldByNumber)(const mxArray *, mwIndex, int) = NULL;
+const char* (*mxGetFieldNameByNumber)(const mxArray *, int) = NULL;
+mwIndex* (*mxGetIr)(const mxArray *) = NULL;
+mwIndex* (*mxGetJc)(const mxArray *) = NULL;
+size_t (*mxGetN)(const mxArray *) = NULL;
+size_t (*mxGetM)(const mxArray *) = NULL;
+mwSize (*mxGetNumberOfDimensions)(const mxArray *) = NULL;
+mwSize (*mxGetNumberOfElements)(const mxArray *) = NULL;
+int (*mxGetNumberOfFields)(const mxArray *) = NULL;
+mxArray* (*mxGetProperty)(const mxArray *, const mwIndex, const char *) = NULL;
+double (*mxGetScalar)(const mxArray *) = NULL;
+int (*mxGetString)(const mxArray *, char *, mwSize) = NULL;
+bool (*mxIsCell)(const mxArray *) = NULL;
+bool (*mxIsChar)(const mxArray *) = NULL;
+bool (*mxIsComplex)(const mxArray *) = NULL;
+bool (*mxIsDouble)(const mxArray *) = NULL;
+bool (*mxIsLogical)(const mxArray *) = NULL;
+bool (*mxIsLogicalScalar)(const mxArray *) = NULL;
+bool (*mxIsLogicalScalarTrue)(const mxArray *) = NULL;
+bool (*mxIsNumeric)(const mxArray *) = NULL;
+bool (*mxIsSparse)(const mxArray *) = NULL;
+bool (*mxIsStruct)(const mxArray *) = NULL;
+void (*mxSetCell)(mxArray *, mwIndex, mxArray *) = NULL;
+void (*mxSetField)(mxArray *, mwIndex, const char *, mxArray *) = NULL;
+void (*mxSetProperty)(mxArray *, mwIndex, const char *, const mxArray *) = NULL;
+void (*mxSetFieldByNumber)(mxArray *, mwIndex, int, mxArray *) = NULL;
+mxArray* (*mxCreateCharArray)(mwSize, const mwSize *) = NULL;
+int (*mexCallMATLAB)(int, mxArray *[], int, mxArray *[], const char *) = NULL;
+mxArray* (*mexCallMATLABWithTrap)(int, mxArray *[], int, mxArray *[], const char *) = NULL;
+void (*mexErrMsgIdAndTxt)(const char *, const char *, ...) = NULL;
+void (*mexErrMsgTxt)(const char *) = NULL;
+int (*mexEvalString)(const char *) = NULL;
+void (*mexWarnMsgIdAndTxt)(const char *, const char *, ...) = NULL;
+int (*mexPrintf)(const char*, ...) = NULL;
+void (*mexLock)(void) = NULL;
+int (*mexAtExit)(void (*)(void)) = NULL;
 
 BOOL APIENTRY DllMain( HMODULE hModule,
              DWORD  ul_reason_for_call,
@@ -147,61 +147,61 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 }
 
 #else
-int mxAddField(mxArray *, const char *) { return 0; }
-char* mxArrayToString(const mxArray *) { return 0; }
-mxArray* mxCreateCellMatrix(mwSize, mwSize) { return 0; }
-mxArray* mxCreateCharMatrixFromStrings(mwSize, const char **) { return 0; }
-mxArray* mxCreateDoubleMatrix(mwSize, mwSize, mxComplexity) { return 0; }
-mxArray* mxCreateDoubleScalar(double) { return 0; }
-mxArray* mxCreateLogicalMatrix(mwSize, mwSize) { return 0; }
-mxArray* mxCreateLogicalScalar(bool) { return 0; }
-mxArray* mxCreateNumericArray(mwSize, const mwSize *, mxClassID, mxComplexity) { return 0; }
-mxArray* mxCreateNumericMatrix(mwSize, mwSize, mxClassID, mxComplexity) { return 0; }
-mxArray* mxCreateSparse(mwSize, mwSize, mwSize, mxComplexity) { return 0; }
-mxArray* mxCreateString(const char *) { return 0; }
-mxArray* mxCreateStructMatrix(mwSize, mwSize, int, const char **) { return 0; }
-void mxDestroyArray(mxArray *) {}
-mxArray* mxGetCell(const mxArray *, mwIndex) { return 0; }
-mxChar* mxGetChars(const mxArray *) { return 0; }
-mxClassID mxGetClassID(const mxArray *) { return 0; }
-void* mxGetData(const mxArray *) {}
-const mwSize* mxGetDimensions(const mxArray *) { return 0; }
-mxArray* mxGetField(const mxArray *, mwIndex, const char *) { return 0; }
-mxArray* mxGetFieldByNumber(const mxArray *, mwIndex, int) { return 0; }
-const char* mxGetFieldNameByNumber(const mxArray *, int) { return 0; }
-mwIndex* mxGetIr(const mxArray *) { return 0; }
-mwIndex* mxGetJc(const mxArray *) { return 0; }
-size_t mxGetN(const mxArray *) { return 0; }
-size_t mxGetM(const mxArray *) { return 0; }
-mwSize mxGetNumberOfDimensions(const mxArray *) { return 0; }
-mwSize mxGetNumberOfElements(const mxArray *) { return 0; }
-int mxGetNumberOfFields(const mxArray *) { return 0; }
-mxArray* mxGetProperty(const mxArray *, const mwIndex, const char *) { return 0; }
-double mxGetScalar(const mxArray *) { return 0; }
-int mxGetString(const mxArray *, char *, mwSize) { return 0; }
-bool mxIsCell(const mxArray *) { return 0; }
-bool mxIsChar(const mxArray *) { return 0; }
-bool mxIsComplex(const mxArray *) { return 0; }
-bool mxIsDouble(const mxArray *) { return 0; }
-bool mxIsLogical(const mxArray *) { return 0; }
-bool mxIsLogicalScalar(const mxArray *) { return 0; }
-bool mxIsLogicalScalarTrue(const mxArray *) { return 0; }
-bool mxIsNumeric(const mxArray *) { return 0; }
-bool mxIsSparse(const mxArray *) { return 0; }
-bool mxIsStruct(const mxArray *) { return 0; }
-void mxSetCell(mxArray *, mwIndex, mxArray *) {}
-void mxSetField(mxArray *, mwIndex, const char *, mxArray *) {}
-void mxSetProperty(mxArray *, mwIndex, const char *, const mxArray *) {}
-void mxSetFieldByNumber(mxArray *, mwIndex, int, mxArray *) {}
-mxArray* mxCreateCharArray(mwSize, const mwSize *) { return 0; }
-int mexCallMATLAB(int, mxArray *[], int, mxArray *[], const char *) { return 0; }
-mxArray* mexCallMATLABWithTrap(int, mxArray *[], int, mxArray *[], const char *) { return 0; }
-void mexErrMsgIdAndTxt(const char *, const char *, ...) {}
-void mexErrMsgTxt(const char *) {}
-int mexEvalString(const char *) { return 0; }
-void mexWarnMsgIdAndTxt(const char *, const char *, ...) {}
-int mexPrintf(const char*, ...) { return 0; }
+int mxAddField(mxArray * a, const char * b) { return 0; }
+char* mxArrayToString(const mxArray * a) { return 0; }
+mxArray* mxCreateCellMatrix(mwSize a, mwSize b) { return 0; }
+mxArray* mxCreateCharMatrixFromStrings(mwSize a, const char ** b) { return 0; }
+mxArray* mxCreateDoubleMatrix(mwSize a, mwSize b, mxComplexity c) { return 0; }
+mxArray* mxCreateDoubleScalar(double a) { return 0; }
+mxArray* mxCreateLogicalMatrix(mwSize a, mwSize b) { return 0; }
+mxArray* mxCreateLogicalScalar(bool a) { return 0; }
+mxArray* mxCreateNumericArray(mwSize a, const mwSize * b, mxClassID c, mxComplexity d) { return 0; }
+mxArray* mxCreateNumericMatrix(mwSize a, mwSize b, mxClassID c, mxComplexity d) { return 0; }
+mxArray* mxCreateSparse(mwSize a, mwSize b, mwSize c, mxComplexity d) { return 0; }
+mxArray* mxCreateString(const char * a) { return 0; }
+mxArray* mxCreateStructMatrix(mwSize a, mwSize b, int c, const char ** d) { return 0; }
+void mxDestroyArray(mxArray * a) {}
+mxArray* mxGetCell(const mxArray * a, mwIndex b) { return 0; }
+mxChar* mxGetChars(const mxArray * a) { return 0; }
+mxClassID mxGetClassID(const mxArray * a) { return 0; }
+void* mxGetData(const mxArray * a) {}
+const mwSize* mxGetDimensions(const mxArray * a) { return 0; }
+mxArray* mxGetField(const mxArray * a, mwIndex b, const char * c) { return 0; }
+mxArray* mxGetFieldByNumber(const mxArray * a, mwIndex b, int c) { return 0; }
+const char* mxGetFieldNameByNumber(const mxArray * a, int b) { return 0; }
+mwIndex* mxGetIr(const mxArray * a) { return 0; }
+mwIndex* mxGetJc(const mxArray * a) { return 0; }
+size_t mxGetN(const mxArray * a) { return 0; }
+size_t mxGetM(const mxArray * a) { return 0; }
+mwSize mxGetNumberOfDimensions(const mxArray * a) { return 0; }
+mwSize mxGetNumberOfElements(const mxArray * a) { return 0; }
+int mxGetNumberOfFields(const mxArray * a) { return 0; }
+mxArray* mxGetProperty(const mxArray * a, const mwIndex b, const char * c) { return 0; }
+double mxGetScalar(const mxArray * a) { return 0; }
+int mxGetString(const mxArray * a, char * b, mwSize c) { return 0; }
+bool mxIsCell(const mxArray * a) { return 0; }
+bool mxIsChar(const mxArray * a) { return 0; }
+bool mxIsComplex(const mxArray * a) { return 0; }
+bool mxIsDouble(const mxArray * a) { return 0; }
+bool mxIsLogical(const mxArray * a) { return 0; }
+bool mxIsLogicalScalar(const mxArray * a) { return 0; }
+bool mxIsLogicalScalarTrue(const mxArray * a) { return 0; }
+bool mxIsNumeric(const mxArray * a) { return 0; }
+bool mxIsSparse(const mxArray * a) { return 0; }
+bool mxIsStruct(const mxArray * a) { return 0; }
+void mxSetCell(mxArray * a, mwIndex b, mxArray * c) {}
+void mxSetField(mxArray * a, mwIndex b, const char * c, mxArray * d) {}
+void mxSetProperty(mxArray * a, mwIndex b, const char * c, const mxArray * d) {}
+void mxSetFieldByNumber(mxArray * a, mwIndex b, int c, mxArray * d) {}
+mxArray* mxCreateCharArray(mwSize a, const mwSize * b) { return 0; }
+int mexCallMATLAB(int a, mxArray *[] b, int c, mxArray *[] d, const char * e) { return 0; }
+mxArray* mexCallMATLABWithTrap(int a, mxArray *[] b, int c, mxArray *[] d, const char * e) { return 0; }
+void mexErrMsgIdAndTxt(const char * a, const char * b, ...) {}
+void mexErrMsgTxt(const char * a) {}
+int mexEvalString(const char * a) { return 0; }
+void mexWarnMsgIdAndTxt(const char * a, const char * b, ...) {}
+int mexPrintf(const char* a, ...) { return 0; }
 void mexLock(void) {}
-int mexAtExit(void (*)(void)) { return 0; }
+int mexAtExit(void (*)(void) a) { return 0; }
 
 #endif // _WIN32

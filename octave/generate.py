@@ -1,6 +1,8 @@
 
 method_declarations = []
 
+import re
+
 with open("include/mex_core.h.in","r") as fin:
   for line in fin.readlines():
     line = line.strip()
@@ -38,14 +40,14 @@ with open("src/mex.c","w") as fout:
 
 
   fout.write("""
-
+#include "mex.h"
 #ifdef _WIN32
 #include <libloaderapi.h>
 #include <stdio.h>
 
 """)
   for decl in method_declarations:
-    fout.write(decl.replace(get_name(decl),"(*adaptor_%s)" % get_name(decl))[:-1]+" = NULL;\n")
+    fout.write(decl.replace(get_name(decl),"(*%s)" % get_name(decl))[:-1]+" = NULL;\n")
 
   fout.write("""
 BOOL APIENTRY DllMain( HMODULE hModule,
@@ -85,7 +87,15 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 """)
 
   for decl in method_declarations:
-    fout.write(decl[:-1]+" {" + (" return 0; " if not decl.startswith("void") else "")+ "}\n")
+    def add_param_name(m):
+      parts = m.group(0)[1:-1].split(",")
+      for i in range(len(parts)):
+        if parts[i]=="void": continue
+        if "..." in parts[i]: continue
+        parts[i] += " "+"abcdefgh"[i]
+      return "("+",".join(parts)+")"
+    d = re.sub("\(.*\)",add_param_name,decl[:-1])
+    fout.write(d+" {" + (" return 0; " if not decl.startswith("void") else "")+ "}\n")
  
   fout.write("""
 #endif // _WIN32
