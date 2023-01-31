@@ -194,14 +194,14 @@ void mxSetField(mxArray * a, mwIndex b, const char * c, mxArray * d) {}
 void mxSetProperty(mxArray * a, mwIndex b, const char * c, const mxArray * d) {}
 void mxSetFieldByNumber(mxArray * a, mwIndex b, int c, mxArray * d) {}
 mxArray* mxCreateCharArray(mwSize a, const mwSize * b) { return 0; }
-int mexCallMATLAB(int a, mxArray *[] b, int c, mxArray *[] d, const char * e) { return 0; }
-mxArray* mexCallMATLABWithTrap(int a, mxArray *[] b, int c, mxArray *[] d, const char * e) { return 0; }
+int mexCallMATLAB(int a, mxArray * b[], int c, mxArray * d[], const char * e) { return 0; }
+mxArray* mexCallMATLABWithTrap(int a, mxArray * b[], int c, mxArray * d[], const char * e) { return 0; }
 void mexErrMsgIdAndTxt(const char * a, const char * b, ...) {}
 void mexErrMsgTxt(const char * a) {}
 int mexEvalString(const char * a) { return 0; }
 void mexWarnMsgIdAndTxt(const char * a, const char * b, ...) {}
 int mexPrintf(const char* a, ...) { return 0; }
 void mexLock(void) {}
-int mexAtExit(void (*)(void) a) { return 0; }
+int mexAtExit(void (* a)(void)) { return 0; }
 
 #endif // _WIN32

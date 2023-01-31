@@ -24,8 +24,8 @@ extern "C"
 
 #include <stdlib.h>
 #include <stddef.h>
-typedef size_t mwSize;
-typedef size_t mwIndex;
+typedef int64_t mwSize;
+typedef int64_t mwIndex;
 typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
 
 typedef enum {
@@ -50,8 +50,9 @@ typedef enum {
     mxOBJECT_CLASS
 } mxClassID;
 
+typedef unsigned char bool;
 typedef bool mxLogical;
-typedef char16_t mxChar;
+typedef char mxChar;
 
 [mex_core.h]
 

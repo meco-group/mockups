@@ -90,9 +90,14 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     def add_param_name(m):
       parts = m.group(0)[1:-1].split(",")
       for i in range(len(parts)):
+        name = "abcdefgh"[i]
+        if parts[i].count("*")==1:
+          p = parts[i].split("*")
+          parts[i] = p[0] + "* "+name + p[1]
+          continue
         if parts[i]=="void": continue
         if "..." in parts[i]: continue
-        parts[i] += " "+"abcdefgh"[i]
+        parts[i] += " "+name
       return "("+",".join(parts)+")"
     d = re.sub("\(.*\)",add_param_name,decl[:-1])
     fout.write(d+" {" + (" return 0; " if not decl.startswith("void") else "")+ "}\n")
