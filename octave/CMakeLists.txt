@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.1...3.16)
 # https://dominikberner.ch/cmake-interface-lib/
 
 project(octave
-  LANGUAGES C CXX)
+  LANGUAGES C)
 
 set(INSTALL_PREFIX  "")
 
@@ -18,12 +18,14 @@ endif()
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-add_library(octinterp SHARED src/mex.cpp include/mex.h)
+set(LIBRARY_NAME octinterp_adaptor)
 
-set_target_properties(octinterp PROPERTIES CXX_STANDARD 11)
+add_library(${LIBRARY_NAME} SHARED src/mex.c include/mex.h)
+
+set_target_properties(${LIBRARY_NAME} PROPERTIES CXX_STANDARD 11)
 
 if(WIN32)
-  set_target_properties(octinterp PROPERTIES PREFIX "lib" IMPORT_PREFIX "lib")
+  set_target_properties(${LIBRARY_NAME} PROPERTIES PREFIX "lib" IMPORT_PREFIX "lib")
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -45,9 +47,7 @@ endif()
 
 set(OCTAVE_MEX_EXT "mex")
 
-set(LIBRARIES octinterp)
-
-install(TARGETS ${LIBRARIES} EXPORT octaveTargets
+install(TARGETS ${LIBRARY_NAME} EXPORT octaveTargets
   LIBRARY DESTINATION ${INSTALL_PREFIX}lib
   ARCHIVE DESTINATION ${INSTALL_PREFIX}${ARCHIVE_DIR}
   RUNTIME DESTINATION ${INSTALL_PREFIX}${RUNTIME_DIR})
@@ -56,7 +56,7 @@ install(TARGETS ${LIBRARIES} EXPORT octaveTargets
 add_library(octave INTERFACE)
 
 if(WIN32)
-  target_link_libraries(octave INTERFACE octinterp)
+  target_link_libraries(octave INTERFACE ${LIBRARY_NAME})
   target_compile_definitions(octave INTERFACE __STDC_UTF_16__ WINMAT64)
 endif()
 
@@ -66,7 +66,7 @@ install(TARGETS octave EXPORT octaveTargets
   RUNTIME DESTINATION ${INSTALL_PREFIX}bin
   INCLUDES DESTINATION ${INSTALL_PREFIX}include)
 
-target_include_directories(octinterp PUBLIC
+target_include_directories(${LIBRARY_NAME} PUBLIC
   $<BUILD_INTERFACE:${octave_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:${INSTALL_PREFIX}include>
 )

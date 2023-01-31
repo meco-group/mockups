@@ -1,0 +1,62 @@
+#ifndef mex_H
+#define mex_H
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+  typedef struct mxArray_tag mxArray;
+
+
+
+#include <stdint.h>
+
+#define int8_T int8_t
+#define uint8_T uint8_t
+#define int16_T int16_t
+#define uint16_T uint16_t
+#define int32_T int32_t
+#define uint32_T uint32_t
+#define int64_T int64_t
+#define uint64_T uint64_t
+
+#include <stdlib.h>
+#include <stddef.h>
+typedef size_t mwSize;
+typedef size_t mwIndex;
+typedef enum { mxREAL, mxCOMPLEX } mxComplexity;
+
+typedef enum {
+    mxUNKNOWN_CLASS = 0,
+    mxCELL_CLASS,
+    mxSTRUCT_CLASS,
+    mxLOGICAL_CLASS,
+    mxCHAR_CLASS,
+    mxVOID_CLASS,
+    mxDOUBLE_CLASS,
+    mxSINGLE_CLASS,
+    mxINT8_CLASS,
+    mxUINT8_CLASS,
+    mxINT16_CLASS,
+    mxUINT16_CLASS,
+    mxINT32_CLASS,
+    mxUINT32_CLASS,
+    mxINT64_CLASS,
+    mxUINT64_CLASS,
+    mxFUNCTION_CLASS,
+    mxOPAQUE_CLASS,
+    mxOBJECT_CLASS
+} mxClassID;
+
+typedef bool mxLogical;
+typedef char16_t mxChar;
+
+[mex_core.h]
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // mex_H
