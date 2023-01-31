@@ -31,7 +31,7 @@ with open("include/mex.h","w") as fout:
   fout.write("#ifdef _WIN32\n")
   for decl in method_declarations:
     fout.write("#define %s adaptor_%s\n" % (get_name(decl),get_name(decl)))
-    fout.write( decl.replace(get_name(decl),"(*%s)" % get_name(decl))+"\n")
+    fout.write("__declspec( dllimport ) " + decl.replace(get_name(decl),"(*%s)" % get_name(decl))+"\n")
   fout.write("#else\n")
   for decl in method_declarations:
     fout.write(decl+"\n")

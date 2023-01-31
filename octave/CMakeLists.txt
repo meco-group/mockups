@@ -22,8 +22,6 @@ set(LIBRARY_NAME octinterp_adaptor)
 
 add_library(${LIBRARY_NAME} SHARED src/mex.c include/mex.h)
 
-set_target_properties(${LIBRARY_NAME} PROPERTIES CXX_STANDARD 11)
-
 if(WIN32)
   set_target_properties(${LIBRARY_NAME} PROPERTIES PREFIX "lib" IMPORT_PREFIX "lib")
 endif()
