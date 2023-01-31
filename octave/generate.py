@@ -67,7 +67,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
           } else {
             sprintf(buffer, "liboctinterp-%d.dll", i);
           }
-          HMODULE h = getModuleHandle(buffer);
+          HMODULE h = GetModuleHandle(buffer);
           if (h != NULL) {
 """)
   for decl in method_declarations:

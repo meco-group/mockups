@@ -75,7 +75,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
           } else {
             sprintf(buffer, "liboctinterp-%d.dll", i);
           }
-          HMODULE h = getModuleHandle(buffer);
+          HMODULE h = GetModuleHandle(buffer);
           if (h != NULL) {
             mxAddField = (int (*)(mxArray *, const char *)) GetProcAddress(h, "mxAddField");
             mxArrayToString = (char* (*)(const mxArray *)) GetProcAddress(h, "mxArrayToString");
