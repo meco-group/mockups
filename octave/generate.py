@@ -22,6 +22,9 @@ with open("include/mex.h.in","r") as fin:
       
 def get_name(decl):
   return decl.split("(")[0].split(" ")[-1]
+  
+def function_ptr(decl):
+  return decl[:-1].replace(get_name(decl),"(*)")
 
 with open("include/mex.h","w") as fout:
   fout.write("".join(preamble))
@@ -68,7 +71,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
           if (h != NULL) {
 """)
   for decl in method_declarations:
-    fout.write("""            adaptor_%s = GetProcAddress(h, "%s");\n""" % (get_name(decl),get_name(decl)))
+    fout.write("""            %s = (%s) GetProcAddress(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl)))
                  
   fout.write("""            return TRUE;
           }    
