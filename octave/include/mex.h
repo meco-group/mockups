@@ -57,7 +57,7 @@ typedef char mxChar;
 #ifdef DLL_IMPLEMENTATION
 #define DLLSYMBOL __declspec( dllexport )
 #else
-#define DLLSYMBOL __declspec( dllimport )
+#define DLLSYMBOL __declspec( dllimport ) extern
 #endif
 
 #ifdef _WIN32
