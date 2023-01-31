@@ -54,6 +54,12 @@ typedef unsigned char bool;
 typedef bool mxLogical;
 typedef char mxChar;
 
+#ifdef DLL_IMPLEMENTATION
+#define DLLSYMBOL __declspec( dllexport )
+#else
+#define DLLSYMBOL __declspec( dllimport )
+#endif
+
 [mex_core.h]
 
 #ifdef __cplusplus

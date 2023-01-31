@@ -1,8 +1,10 @@
 
+#define DLL_IMPLEMENTATION
 #include "mex.h"
 #ifdef _WIN32
 #include <libloaderapi.h>
 #include <stdio.h>
+
 
 int (*mxAddField)(mxArray *, const char *) = NULL;
 char* (*mxArrayToString)(const mxArray *) = NULL;
