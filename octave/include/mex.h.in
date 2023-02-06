@@ -50,7 +50,9 @@ typedef enum {
     mxOBJECT_CLASS
 } mxClassID;
 
+#ifndef __cplusplus
 typedef unsigned char bool;
+#endif
 typedef bool mxLogical;
 typedef char mxChar;
 
