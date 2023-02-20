@@ -24,3 +24,4 @@ int  KNITRO_API KN_set_var_primal_init_values_all (KN_context_ptr, const double 
 int  KNITRO_API KN_set_var_types_all (KN_context_ptr, const int * const) { return 0; }
 int  KNITRO_API KN_set_var_upbnds_all (KN_context_ptr, const double * const) { return 0; }
 int  KNITRO_API KN_solve (KN_context_ptr) { return 0; }
+int  KNITRO_API KN_set_int_param_by_name(KN_context_ptr, const char * const, const int value) { return 0; }

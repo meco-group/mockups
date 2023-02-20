@@ -47,22 +47,23 @@ typedef KNINT   KNBOOL;
 #define KNFALSE 0
 
 typedef struct KN_eval_request {
-    int a;
-    int b;
-    const double * c;
-    const double * d;
-    const double * e;
-    const double * f;
+          int      type;
+          int      threadID;
+    const double * x;
+    const double * lambda;
+    const double * sigma;
+    const double * vec;
 } KN_eval_request, *KN_eval_request_ptr;
+
 typedef struct KN_eval_result {
-    double * a;
-    double * b;
+    double * obj;
     double * c;
-    double * d;
-    double * e;
-    double * f;
-    double * g;
-    double * h;
+    double * objGrad;
+    double * jac;
+    double * hess;
+    double * hessVec;
+    double * rsd;
+    double * rsdJac;
 } KN_eval_result, *KN_eval_result_ptr;
 
 typedef struct KN_context KN_context, *KN_context_ptr;
@@ -100,6 +101,122 @@ int  KNITRO_API KN_set_var_primal_init_values_all (KN_context_ptr, const double 
 int  KNITRO_API KN_set_var_types_all (KN_context_ptr, const int * const);
 int  KNITRO_API KN_set_var_upbnds_all (KN_context_ptr, const double * const);
 int  KNITRO_API KN_solve (KN_context_ptr);
+int  KNITRO_API KN_set_int_param_by_name(KN_context_ptr, const char * const, const int value);
+    
+
+#define KN_INFINITY DBL_MAX
+
+#define KN_PARAMTYPE_INTEGER 0
+#define KN_PARAMTYPE_FLOAT   1
+#define KN_PARAMTYPE_STRING  2
+
+
+#define KN_COMPONENT_VAR     1
+#define KN_COMPONENT_OBJ     2
+#define KN_COMPONENT_CON     3
+#define KN_COMPONENT_RSD     4
+
+#define KN_OBJGOAL_MINIMIZE    0
+#define KN_OBJGOAL_MAXIMIZE    1
+
+#define KN_OBJTYPE_CONSTANT  -1
+#define KN_OBJTYPE_GENERAL    0
+#define KN_OBJTYPE_LINEAR     1
+#define KN_OBJTYPE_QUADRATIC  2
+
+#define KN_CONTYPE_CONSTANT  -1
+#define KN_CONTYPE_GENERAL    0
+#define KN_CONTYPE_LINEAR     1
+#define KN_CONTYPE_QUADRATIC  2
+#define KN_CONTYPE_CONIC      3
+
+#define KN_CCTYPE_VARVAR      0
+#define KN_CCTYPE_VARCON      1
+#define KN_CCTYPE_CONCON      2
+
+#define KN_VARTYPE_CONTINUOUS  0
+#define KN_VARTYPE_INTEGER     1
+#define KN_VARTYPE_BINARY      2
+
+#define KN_RC_EVALFC          1
+#define KN_RC_EVALGA          2
+#define KN_RC_EVALH           3
+#define KN_RC_EVALHV          7
+#define KN_RC_EVALH_NO_F      8
+#define KN_RC_EVALHV_NO_F     9
+#define KN_RC_EVALR          10
+#define KN_RC_EVALRJ         11
+#define KN_RC_EVALFCGA       12
+
+#  define KN_HESSOPT_AUTO                0
+#  define KN_HESSOPT_EXACT               1
+#  define KN_HESSOPT_BFGS                2
+#  define KN_HESSOPT_SR1                 3
+#  define KN_HESSOPT_PRODUCT_FINDIFF     4
+#  define KN_HESSOPT_PRODUCT             5
+#  define KN_HESSOPT_LBFGS               6
+#  define KN_HESSOPT_GAUSS_NEWTON        7
+
+#define KN_RC_OPTIMAL_OR_SATISFACTORY 0
+#define KN_RC_OPTIMAL                 0
+#define KN_RC_NEAR_OPT               -100
+#define KN_RC_FEAS_XTOL              -101
+#define KN_RC_FEAS_NO_IMPROVE        -102
+#define KN_RC_FEAS_FTOL              -103
+#define KN_RC_INFEASIBLE             -200
+#define KN_RC_INFEAS_XTOL            -201
+#define KN_RC_INFEAS_NO_IMPROVE      -202
+#define KN_RC_INFEAS_MULTISTART      -203
+#define KN_RC_INFEAS_CON_BOUNDS      -204
+#define KN_RC_INFEAS_VAR_BOUNDS      -205
+#define KN_RC_UNBOUNDED              -300
+#define KN_RC_UNBOUNDED_OR_INFEAS    -301
+#define KN_RC_ITER_LIMIT_FEAS        -400
+#define KN_RC_TIME_LIMIT_FEAS        -401
+#define KN_RC_FEVAL_LIMIT_FEAS       -402
+#define KN_RC_MIP_EXH_FEAS           -403
+#define KN_RC_MIP_TERM_FEAS          -404
+#define KN_RC_MIP_SOLVE_LIMIT_FEAS   -405
+#define KN_RC_MIP_NODE_LIMIT_FEAS    -406
+#define KN_RC_ITER_LIMIT_INFEAS      -410
+#define KN_RC_TIME_LIMIT_INFEAS      -411
+#define KN_RC_FEVAL_LIMIT_INFEAS     -412
+#define KN_RC_MIP_EXH_INFEAS         -413
+#define KN_RC_MIP_SOLVE_LIMIT_INFEAS -415
+#define KN_RC_MIP_NODE_LIMIT_INFEAS  -416
+#define KN_RC_CALLBACK_ERR           -500
+#define KN_RC_LP_SOLVER_ERR          -501
+#define KN_RC_EVAL_ERR               -502
+#define KN_RC_OUT_OF_MEMORY          -503
+#define KN_RC_USER_TERMINATION       -504
+#define KN_RC_OPEN_FILE_ERR          -505
+#define KN_RC_BAD_N_OR_F             -506
+#define KN_RC_BAD_CONSTRAINT         -507
+#define KN_RC_BAD_JACOBIAN           -508
+#define KN_RC_BAD_HESSIAN            -509
+#define KN_RC_BAD_CON_INDEX          -510
+#define KN_RC_BAD_JAC_INDEX          -511
+#define KN_RC_BAD_HESS_INDEX         -512
+#define KN_RC_BAD_CON_BOUNDS         -513
+#define KN_RC_BAD_VAR_BOUNDS         -514
+#define KN_RC_ILLEGAL_CALL           -515
+#define KN_RC_BAD_KCPTR              -516
+#define KN_RC_NULL_POINTER           -517
+#define KN_RC_BAD_INIT_VALUE         -518
+#define KN_RC_LICENSE_ERROR          -520
+#define KN_RC_BAD_PARAMINPUT         -521
+#define KN_RC_LINEAR_SOLVER_ERR      -522
+#define KN_RC_DERIV_CHECK_FAILED     -523
+#define KN_RC_DERIV_CHECK_TERMINATE  -524
+#define KN_RC_OVERFLOW_ERR           -525
+#define KN_RC_BAD_SIZE               -526
+#define KN_RC_BAD_VARIABLE           -527
+#define KN_RC_BAD_VAR_INDEX          -528
+#define KN_RC_BAD_OBJECTIVE          -529
+#define KN_RC_BAD_OBJ_INDEX          -530
+#define KN_RC_BAD_RESIDUAL           -531
+#define KN_RC_BAD_RSD_INDEX          -532
+#define KN_RC_INTERNAL_ERROR         -600
 
 #ifdef __cplusplus
 }
