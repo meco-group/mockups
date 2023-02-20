@@ -1,0 +1,95 @@
+#ifndef CPX_CPLEXL_H
+#define CPX_CPLEXL_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef _WIN32
+#define CPXPUBLIC      __stdcall
+#define CPXPUBVARARGS  __cdecl
+#define CPXCDECL       __cdecl
+#else
+#define CPXPUBLIC
+#define CPXPUBVARARGS
+#define CPXCDECL
+#endif
+
+#ifndef CPXBYTE_DEFINED
+#   define CPXBYTE_DEFINED 1
+    typedef signed char CPXBYTE;
+#endif
+    
+
+#ifndef CPXINT_DEFINED
+#   define CPXINT_DEFINED 1
+    typedef int CPXINT;
+#endif
+    
+
+#ifndef CPXLONG_DEFINED
+#   define CPXLONG_DEFINED 1
+#   ifdef _MSC_VER
+       typedef __int64 CPXLONG;
+#   else
+       typedef long long CPXLONG;
+#   endif
+#endif
+
+/* structure types */
+struct cpxenv;
+typedef struct cpxenv *CPXENVptr;
+typedef struct cpxenv const *CPXCENVptr;
+
+struct cpxchannel;
+typedef struct cpxchannel  *CPXCHANNELptr;
+
+struct paramset;
+typedef struct paramset *CPXPARAMSETptr;
+typedef struct paramset const *CPXCPARAMSETptr;
+
+struct cpxlp;
+typedef struct cpxlp        *CPXLPptr;
+typedef const struct cpxlp  *CPXCLPptr;
+
+struct cpxnet;
+typedef struct cpxnet       *CPXNETptr;
+
+
+typedef char       *CPXCHARptr;
+typedef const char *CPXCCHARptr;
+typedef void       *CPXVOIDptr;
+
+#define CASADI_CPLEX_ADAPTOR
+
+#ifdef _WIN32
+#include <windows.h>
+#define adaptor_handle_t HINSTANCE
+#else
+#include <dlfcn.h>
+#define adaptor_handle_t void*
+#endif
+
+#ifdef _WIN32
+    #ifdef DLL_IMPLEMENTATION
+    #define DLLSYMBOL __declspec( dllexport )
+    #else
+    #define DLLSYMBOL __declspec( dllimport ) extern
+    #endif
+#else
+    #ifdef DLL_IMPLEMENTATION
+    #define DLLSYMBOL 
+    #else
+    #define DLLSYMBOL extern
+    #endif
+#endif
+
+int cplex_adaptor_load(adaptor_handle_t handle);
+
+[cplex_core.h]
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // CPX_CPLEXL_H
