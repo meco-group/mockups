@@ -70,6 +70,35 @@ typedef void       *CPXVOIDptr;
 #define adaptor_handle_t void*
 #endif
 
+#define CPX_APIMODEL_SMALL 1
+#define CPX_APIMODEL_LARGE 2
+
+#ifndef CPX_APIMODEL
+#   if defined(__x86_64__) || defined(__ia64) || defined(_WIN64) || defined(__powerpc64__) || defined(__64BIT__) || defined(__sparcv9) || defined(__LP64__)
+#      define CPX_APIMODEL CPX_APIMODEL_LARGE
+#   else
+#      define CPX_APIMODEL CPX_APIMODEL_SMALL
+#   endif
+#endif
+
+#if CPX_APIMODEL == CPX_APIMODEL_SMALL
+    typedef CPXINT CPXDIM;
+#elif CPX_APIMODEL == CPX_APIMODEL_LARGE
+    typedef CPXINT CPXDIM;
+#endif
+
+#if CPX_APIMODEL == CPX_APIMODEL_SMALL
+    typedef CPXINT CPXNNZ;
+#elif CPX_APIMODEL == CPX_APIMODEL_LARGE
+    typedef CPXLONG CPXNNZ;
+#endif
+
+#if CPX_APIMODEL == CPX_APIMODEL_SMALL
+    typedef CPXLONG CPXCNT;
+#elif CPX_APIMODEL == CPX_APIMODEL_LARGE
+    typedef CPXLONG CPXCNT;
+#endif
+
 #ifdef _WIN32
     #ifdef DLL_IMPLEMENTATION
     #define DLLSYMBOL __declspec( dllexport )
@@ -86,74 +115,74 @@ typedef void       *CPXVOIDptr;
 
 int cplex_adaptor_load(adaptor_handle_t handle);
 
-#define CPXLaddmipstarts adaptor_CPXLaddmipstarts
-DLLSYMBOL int (*CPXLaddmipstarts)(CPXCENVptr, CPXLPptr, int, CPXLONG, CPXLONG const *, CPXINT const *, double const *, int const *, char const *const *);
-#define CPXLaddqconstr adaptor_CPXLaddqconstr
-DLLSYMBOL int (*CPXLaddqconstr)(CPXCENVptr, CPXLPptr, CPXINT, CPXLONG, double, int, CPXINT const *, double const *, CPXINT const *, CPXINT const *, double const *, char const *);
-#define CPXLaddrows adaptor_CPXLaddrows
-DLLSYMBOL int (*CPXLaddrows)(CPXCENVptr, CPXLPptr, CPXINT, CPXINT, CPXLONG, double const *, char const *, CPXLONG const *, CPXINT const *, double const *, char const *const *, char const *const *);
-#define CPXLaddsos adaptor_CPXLaddsos
-DLLSYMBOL int (*CPXLaddsos)(CPXCENVptr, CPXLPptr, CPXINT, CPXLONG, char const *, CPXLONG const *, CPXINT const *, double const *, char const *const *);
-#define CPXLcloseCPLEX adaptor_CPXLcloseCPLEX
-DLLSYMBOL int (*CPXLcloseCPLEX)(CPXENVptr *);
-#define CPXLcopyctype adaptor_CPXLcopyctype
-DLLSYMBOL int (*CPXLcopyctype)(CPXCENVptr, CPXLPptr, char const *);
-#define CPXLcopylp adaptor_CPXLcopylp
-DLLSYMBOL int (*CPXLcopylp)(CPXCENVptr, CPXLPptr, CPXINT, CPXINT, int, double const *, double const *, char const *, CPXLONG const *, CPXINT const *, CPXINT const *, double const *, double const *, double const *, double const *);
-#define CPXLcopyquad adaptor_CPXLcopyquad
-DLLSYMBOL int (*CPXLcopyquad)(CPXCENVptr, CPXLPptr, CPXLONG const *, CPXINT const *, CPXINT const *, double const *);
-#define CPXLcopystart adaptor_CPXLcopystart
-DLLSYMBOL int (*CPXLcopystart)(CPXCENVptr, CPXLPptr, int const *, int const *, double const *, double const *, double const *, double const *);
-#define CPXLcreateprob adaptor_CPXLcreateprob
-DLLSYMBOL CPXLPptr (*CPXLcreateprob)(CPXCENVptr, int *, char const *);
-#define CPXLfreeprob adaptor_CPXLfreeprob
-DLLSYMBOL int (*CPXLfreeprob)(CPXCENVptr, CPXLPptr *);
-#define CPXLgetbase adaptor_CPXLgetbase
-DLLSYMBOL int (*CPXLgetbase)(CPXCENVptr, CPXCLPptr, int *, int *);
-#define CPXLgeterrorstring adaptor_CPXLgeterrorstring
-DLLSYMBOL CPXCCHARptr (*CPXLgeterrorstring)(CPXCENVptr, int, char *);
-#define CPXLgetnumcols adaptor_CPXLgetnumcols
-DLLSYMBOL CPXINT (*CPXLgetnumcols)(CPXCENVptr, CPXCLPptr);
-#define CPXLgetnumrows adaptor_CPXLgetnumrows
-DLLSYMBOL CPXINT (*CPXLgetnumrows)(CPXCENVptr, CPXCLPptr);
-#define CPXLgetobjval adaptor_CPXLgetobjval
-DLLSYMBOL int (*CPXLgetobjval)(CPXCENVptr, CPXCLPptr, double *);
-#define CPXLgetparamnum adaptor_CPXLgetparamnum
-DLLSYMBOL int (*CPXLgetparamnum)(CPXCENVptr, char const *, int *);
-#define CPXLgetparamtype adaptor_CPXLgetparamtype
-DLLSYMBOL int (*CPXLgetparamtype)(CPXCENVptr, int, int *);
-#define CPXLgetprobtype adaptor_CPXLgetprobtype
-DLLSYMBOL int (*CPXLgetprobtype)(CPXCENVptr, CPXCLPptr);
-#define CPXLgetslack adaptor_CPXLgetslack
-DLLSYMBOL int (*CPXLgetslack)(CPXCENVptr, CPXCLPptr, double *, CPXINT, CPXINT);
-#define CPXLgetstat adaptor_CPXLgetstat
-DLLSYMBOL int (*CPXLgetstat)(CPXCENVptr, CPXCLPptr);
-#define CPXLgetstatstring adaptor_CPXLgetstatstring
-DLLSYMBOL CPXCHARptr (*CPXLgetstatstring)(CPXCENVptr, int, char *);
-#define CPXLgetx adaptor_CPXLgetx
-DLLSYMBOL int (*CPXLgetx)(CPXCENVptr, CPXCLPptr, double *, CPXINT, CPXINT);
-#define CPXLmipopt adaptor_CPXLmipopt
-DLLSYMBOL int (*CPXLmipopt)(CPXCENVptr, CPXLPptr);
-#define CPXLnewcols adaptor_CPXLnewcols
-DLLSYMBOL int (*CPXLnewcols)(CPXCENVptr, CPXLPptr, CPXINT, double const *, double const *, double const *, char const *, char const *const *);
-#define CPXLopenCPLEX adaptor_CPXLopenCPLEX
-DLLSYMBOL CPXENVptr (*CPXLopenCPLEX)(int *status_p);
-#define CPXLqpopt adaptor_CPXLqpopt
-DLLSYMBOL int (*CPXLqpopt)(CPXCENVptr, CPXLPptr);
-#define CPXLsetdblparam adaptor_CPXLsetdblparam
-DLLSYMBOL int (*CPXLsetdblparam)(CPXENVptr, int, double);
-#define CPXLsetdefaults adaptor_CPXLsetdefaults
-DLLSYMBOL int (*CPXLsetdefaults)(CPXENVptr);
-#define CPXLsetintparam adaptor_CPXLsetintparam
-DLLSYMBOL int (*CPXLsetintparam)(CPXENVptr, int, CPXINT);
-#define CPXLsetlongparam adaptor_CPXLsetlongparam
-DLLSYMBOL int (*CPXLsetlongparam)(CPXENVptr, int, CPXLONG);
-#define CPXLsetstrparam adaptor_CPXLsetstrparam
-DLLSYMBOL int (*CPXLsetstrparam)(CPXENVptr, int, char const *);
-#define CPXLsolution adaptor_CPXLsolution
-DLLSYMBOL int (*CPXLsolution)(CPXCENVptr, CPXCLPptr, int *, double *, double *, double *, double *, double *);
-#define CPXLwriteprob adaptor_CPXLwriteprob
-DLLSYMBOL int (*CPXLwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *);
+#define CPXXaddmipstarts adaptor_CPXXaddmipstarts
+DLLSYMBOL int (*CPXXaddmipstarts)(CPXCENVptr, CPXLPptr, int, CPXNNZ, CPXNNZ const *, CPXDIM const *, double const *, int const *, char const *const *);
+#define CPXXaddqconstr adaptor_CPXXaddqconstr
+DLLSYMBOL int (*CPXXaddqconstr)(CPXCENVptr, CPXLPptr, CPXDIM, CPXNNZ, double, int, CPXDIM const *, double const *, CPXDIM const *, CPXDIM const *, double const *, char const *);
+#define CPXXaddrows adaptor_CPXXaddrows
+DLLSYMBOL int (*CPXXaddrows)(CPXCENVptr, CPXLPptr, CPXDIM, CPXDIM, CPXNNZ, double const *, char const *, CPXNNZ const *, CPXDIM const *, double const *, char const *const *, char const *const *);
+#define CPXXaddsos adaptor_CPXXaddsos
+DLLSYMBOL int (*CPXXaddsos)(CPXCENVptr, CPXLPptr, CPXDIM, CPXNNZ, char const *, CPXNNZ const *, CPXDIM const *, double const *, char const *const *);
+#define CPXXcloseCPLEX adaptor_CPXXcloseCPLEX
+DLLSYMBOL int (*CPXXcloseCPLEX)(CPXENVptr *);
+#define CPXXcopyctype adaptor_CPXXcopyctype
+DLLSYMBOL int (*CPXXcopyctype)(CPXCENVptr, CPXLPptr, char const *);
+#define CPXXcopylp adaptor_CPXXcopylp
+DLLSYMBOL int (*CPXXcopylp)(CPXCENVptr, CPXLPptr, CPXDIM, CPXDIM, int, double const *, double const *, char const *, CPXNNZ const *, CPXDIM const *, CPXDIM const *, double const *, double const *, double const *, double const *);
+#define CPXXcopyquad adaptor_CPXXcopyquad
+DLLSYMBOL int (*CPXXcopyquad)(CPXCENVptr, CPXLPptr, CPXNNZ const *, CPXDIM const *, CPXDIM const *, double const *);
+#define CPXXcopystart adaptor_CPXXcopystart
+DLLSYMBOL int (*CPXXcopystart)(CPXCENVptr, CPXLPptr, int const *, int const *, double const *, double const *, double const *, double const *);
+#define CPXXcreateprob adaptor_CPXXcreateprob
+DLLSYMBOL CPXLPptr (*CPXXcreateprob)(CPXCENVptr, int *, char const *);
+#define CPXXfreeprob adaptor_CPXXfreeprob
+DLLSYMBOL int (*CPXXfreeprob)(CPXCENVptr, CPXLPptr *);
+#define CPXXgetbase adaptor_CPXXgetbase
+DLLSYMBOL int (*CPXXgetbase)(CPXCENVptr, CPXCLPptr, int *, int *);
+#define CPXXgeterrorstring adaptor_CPXXgeterrorstring
+DLLSYMBOL CPXCCHARptr (*CPXXgeterrorstring)(CPXCENVptr, int, char *);
+#define CPXXgetnumcols adaptor_CPXXgetnumcols
+DLLSYMBOL CPXDIM (*CPXXgetnumcols)(CPXCENVptr, CPXCLPptr)
+#define CPXXgetnumrows adaptor_CPXXgetnumrows
+DLLSYMBOL CPXDIM (*CPXXgetnumrows)(CPXCENVptr, CPXCLPptr);
+#define CPXXgetobjval adaptor_CPXXgetobjval
+DLLSYMBOL int (*CPXXgetobjval)(CPXCENVptr, CPXCLPptr, double *);
+#define CPXXgetparamnum adaptor_CPXXgetparamnum
+DLLSYMBOL int (*CPXXgetparamnum)(CPXCENVptr, char const *, int *);
+#define CPXXgetparamtype adaptor_CPXXgetparamtype
+DLLSYMBOL int (*CPXXgetparamtype)(CPXCENVptr, int, int *);
+#define CPXXgetprobtype adaptor_CPXXgetprobtype
+DLLSYMBOL int (*CPXXgetprobtype)(CPXCENVptr, CPXCLPptr);
+#define CPXXgetslack adaptor_CPXXgetslack
+DLLSYMBOL int (*CPXXgetslack)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM);
+#define CPXXgetstat adaptor_CPXXgetstat
+DLLSYMBOL int (*CPXXgetstat)(CPXCENVptr, CPXCLPptr)
+#define CPXXgetstatstring adaptor_CPXXgetstatstring
+DLLSYMBOL CPXCHARptr (*CPXXgetstatstring)(CPXCENVptr, int, char *)
+#define CPXXgetx adaptor_CPXXgetx
+DLLSYMBOL int (*CPXXgetx)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM);
+#define CPXXmipopt adaptor_CPXXmipopt
+DLLSYMBOL int (*CPXXmipopt)(CPXCENVptr, CPXLPptr);
+#define CPXXnewcols adaptor_CPXXnewcols
+DLLSYMBOL int (*CPXXnewcols)(CPXCENVptr, CPXLPptr, CPXDIM, double const *, double const *, double const *, char const *, char const *const *);
+#define CPXXopenCPLEX adaptor_CPXXopenCPLEX
+DLLSYMBOL CPXENVptr (*CPXXopenCPLEX)(int *);
+#define CPXXqpopt adaptor_CPXXqpopt
+DLLSYMBOL int (*CPXXqpopt)(CPXCENVptr, CPXLPptr);
+#define CPXXsetdblparam adaptor_CPXXsetdblparam
+DLLSYMBOL int (*CPXXsetdblparam)(CPXENVptr, int, double);
+#define CPXXsetdefaults adaptor_CPXXsetdefaults
+DLLSYMBOL int (*CPXXsetdefaults)(CPXENVptr);
+#define CPXXsetintparam adaptor_CPXXsetintparam
+DLLSYMBOL int (*CPXXsetintparam)(CPXENVptr, int, CPXINT);
+#define CPXXsetlongparam adaptor_CPXXsetlongparam
+DLLSYMBOL int (*CPXXsetlongparam)(CPXENVptr, int, CPXLONG);
+#define CPXXsetstrparam adaptor_CPXXsetstrparam
+DLLSYMBOL int (*CPXXsetstrparam)(CPXENVptr, int, char const *);
+#define CPXXsolution adaptor_CPXXsolution
+DLLSYMBOL int (*CPXXsolution)(CPXCENVptr, CPXCLPptr, int *, double *, double *, double *, double *, double *);
+#define CPXXwriteprob adaptor_CPXXwriteprob
+DLLSYMBOL int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *);
 
 #ifdef __cplusplus
 }

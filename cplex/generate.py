@@ -66,16 +66,27 @@ with open("src/cplex.c","w") as fout:
       #ifdef _WIN32
 """)
     
+  fout.write("""#ifdef CPX_APIMODEL == CPX_APIMODEL_LARGE\n""")
   for decl in method_declarations:
-    fout.write("""            %s = (%s) GetProcAddress(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl)))
-
+    fout.write("""            %s = (%s) GetProcAddress(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl).replace("CPXX","CPXL")))
+  fout.write("""#endif\n""")
+  fout.write("""#ifdef CPX_APIMODEL == CPX_APIMODEL_SMALL\n""")
+  for decl in method_declarations:
+    fout.write("""            %s = (%s) GetProcAddress(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl).replace("CPXX","CPXS")))
+  fout.write("""#endif\n""")
+  
   fout.write("""
       #else // _WIN32
   """)
     
+  fout.write("""#ifdef CPX_APIMODEL == CPX_APIMODEL_LARGE\n""")
   for decl in method_declarations:
-    fout.write("""            %s = (%s) dlsym(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl)))
-                    
+    fout.write("""            %s = (%s) dlsym(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl).replace("CPXX","CPXL")))
+  fout.write("""#endif\n""")
+  fout.write("""#ifdef CPX_APIMODEL == CPX_APIMODEL_SMALL\n""")
+  for decl in method_declarations:
+    fout.write("""            %s = (%s) dlsym(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl).replace("CPXX","CPXS")))
+  fout.write("""#endif\n""")                 
   fout.write("""
       #endif // _WIN32
       

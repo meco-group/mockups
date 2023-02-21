@@ -70,6 +70,35 @@ typedef void       *CPXVOIDptr;
 #define adaptor_handle_t void*
 #endif
 
+#define CPX_APIMODEL_SMALL 1
+#define CPX_APIMODEL_LARGE 2
+
+#ifndef CPX_APIMODEL
+#   if defined(__x86_64__) || defined(__ia64) || defined(_WIN64) || defined(__powerpc64__) || defined(__64BIT__) || defined(__sparcv9) || defined(__LP64__)
+#      define CPX_APIMODEL CPX_APIMODEL_LARGE
+#   else
+#      define CPX_APIMODEL CPX_APIMODEL_SMALL
+#   endif
+#endif
+
+#if CPX_APIMODEL == CPX_APIMODEL_SMALL
+    typedef CPXINT CPXDIM;
+#elif CPX_APIMODEL == CPX_APIMODEL_LARGE
+    typedef CPXINT CPXDIM;
+#endif
+
+#if CPX_APIMODEL == CPX_APIMODEL_SMALL
+    typedef CPXINT CPXNNZ;
+#elif CPX_APIMODEL == CPX_APIMODEL_LARGE
+    typedef CPXLONG CPXNNZ;
+#endif
+
+#if CPX_APIMODEL == CPX_APIMODEL_SMALL
+    typedef CPXLONG CPXCNT;
+#elif CPX_APIMODEL == CPX_APIMODEL_LARGE
+    typedef CPXLONG CPXCNT;
+#endif
+
 #ifdef _WIN32
     #ifdef DLL_IMPLEMENTATION
     #define DLLSYMBOL __declspec( dllexport )
