@@ -11,15 +11,15 @@ CPXLPptr CPXXcreateprob(CPXCENVptr, int *, char const *);
 int CPXXfreeprob(CPXCENVptr, CPXLPptr *);
 int CPXXgetbase(CPXCENVptr, CPXCLPptr, int *, int *);
 CPXCCHARptr CPXXgeterrorstring(CPXCENVptr, int, char *);
-CPXDIM CPXXgetnumcols(CPXCENVptr, CPXCLPptr)
+CPXDIM CPXXgetnumcols(CPXCENVptr, CPXCLPptr);
 CPXDIM CPXXgetnumrows(CPXCENVptr, CPXCLPptr);
 int CPXXgetobjval(CPXCENVptr, CPXCLPptr, double *);
 int CPXXgetparamnum(CPXCENVptr, char const *, int *);
 int CPXXgetparamtype(CPXCENVptr, int, int *);
 int CPXXgetprobtype(CPXCENVptr, CPXCLPptr);
 int CPXXgetslack(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM);
-int CPXXgetstat(CPXCENVptr, CPXCLPptr)
-CPXCHARptr CPXXgetstatstring(CPXCENVptr, int, char *)
+int CPXXgetstat(CPXCENVptr, CPXCLPptr);
+CPXCHARptr CPXXgetstatstring(CPXCENVptr, int, char *);
 int CPXXgetx(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM);
 int CPXXmipopt(CPXCENVptr, CPXLPptr);
 int CPXXnewcols(CPXCENVptr, CPXLPptr, CPXDIM, double const *, double const *, double const *, char const *, char const *const *);

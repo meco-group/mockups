@@ -23,15 +23,15 @@ CPXLPptr (*CPXXcreateprob)(CPXCENVptr, int *, char const *) = NULL;
 int (*CPXXfreeprob)(CPXCENVptr, CPXLPptr *) = NULL;
 int (*CPXXgetbase)(CPXCENVptr, CPXCLPptr, int *, int *) = NULL;
 CPXCCHARptr (*CPXXgeterrorstring)(CPXCENVptr, int, char *) = NULL;
-CPXDIM (*CPXXgetnumcols)(CPXCENVptr, CPXCLPptr = NULL;
+CPXDIM (*CPXXgetnumcols)(CPXCENVptr, CPXCLPptr) = NULL;
 CPXDIM (*CPXXgetnumrows)(CPXCENVptr, CPXCLPptr) = NULL;
 int (*CPXXgetobjval)(CPXCENVptr, CPXCLPptr, double *) = NULL;
 int (*CPXXgetparamnum)(CPXCENVptr, char const *, int *) = NULL;
 int (*CPXXgetparamtype)(CPXCENVptr, int, int *) = NULL;
 int (*CPXXgetprobtype)(CPXCENVptr, CPXCLPptr) = NULL;
 int (*CPXXgetslack)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM) = NULL;
-int (*CPXXgetstat)(CPXCENVptr, CPXCLPptr = NULL;
-CPXCHARptr (*CPXXgetstatstring)(CPXCENVptr, int, char * = NULL;
+int (*CPXXgetstat)(CPXCENVptr, CPXCLPptr) = NULL;
+CPXCHARptr (*CPXXgetstatstring)(CPXCENVptr, int, char *) = NULL;
 int (*CPXXgetx)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM) = NULL;
 int (*CPXXmipopt)(CPXCENVptr, CPXLPptr) = NULL;
 int (*CPXXnewcols)(CPXCENVptr, CPXLPptr, CPXDIM, double const *, double const *, double const *, char const *, char const *const *) = NULL;
@@ -55,7 +55,7 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
     
     if (h != NULL) {
       #ifdef _WIN32
-#ifdef CPX_APIMODEL == CPX_APIMODEL_LARGE
+#if CPX_APIMODEL == CPX_APIMODEL_LARGE
             CPXXaddmipstarts = (int (*)(CPXCENVptr, CPXLPptr, int, CPXNNZ, CPXNNZ const *, CPXDIM const *, double const *, int const *, char const *const *)) GetProcAddress(h, "CPXLaddmipstarts");
             CPXXaddqconstr = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, CPXNNZ, double, int, CPXDIM const *, double const *, CPXDIM const *, CPXDIM const *, double const *, char const *)) GetProcAddress(h, "CPXLaddqconstr");
             CPXXaddrows = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, CPXDIM, CPXNNZ, double const *, char const *, CPXNNZ const *, CPXDIM const *, double const *, char const *const *, char const *const *)) GetProcAddress(h, "CPXLaddrows");
@@ -69,15 +69,15 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
             CPXXfreeprob = (int (*)(CPXCENVptr, CPXLPptr *)) GetProcAddress(h, "CPXLfreeprob");
             CPXXgetbase = (int (*)(CPXCENVptr, CPXCLPptr, int *, int *)) GetProcAddress(h, "CPXLgetbase");
             CPXXgeterrorstring = (CPXCCHARptr (*)(CPXCENVptr, int, char *)) GetProcAddress(h, "CPXLgeterrorstring");
-            CPXXgetnumcols = (CPXDIM (*)(CPXCENVptr, CPXCLPptr) GetProcAddress(h, "CPXLgetnumcols");
+            CPXXgetnumcols = (CPXDIM (*)(CPXCENVptr, CPXCLPptr)) GetProcAddress(h, "CPXLgetnumcols");
             CPXXgetnumrows = (CPXDIM (*)(CPXCENVptr, CPXCLPptr)) GetProcAddress(h, "CPXLgetnumrows");
             CPXXgetobjval = (int (*)(CPXCENVptr, CPXCLPptr, double *)) GetProcAddress(h, "CPXLgetobjval");
             CPXXgetparamnum = (int (*)(CPXCENVptr, char const *, int *)) GetProcAddress(h, "CPXLgetparamnum");
             CPXXgetparamtype = (int (*)(CPXCENVptr, int, int *)) GetProcAddress(h, "CPXLgetparamtype");
             CPXXgetprobtype = (int (*)(CPXCENVptr, CPXCLPptr)) GetProcAddress(h, "CPXLgetprobtype");
             CPXXgetslack = (int (*)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM)) GetProcAddress(h, "CPXLgetslack");
-            CPXXgetstat = (int (*)(CPXCENVptr, CPXCLPptr) GetProcAddress(h, "CPXLgetstat");
-            CPXXgetstatstring = (CPXCHARptr (*)(CPXCENVptr, int, char *) GetProcAddress(h, "CPXLgetstatstring");
+            CPXXgetstat = (int (*)(CPXCENVptr, CPXCLPptr)) GetProcAddress(h, "CPXLgetstat");
+            CPXXgetstatstring = (CPXCHARptr (*)(CPXCENVptr, int, char *)) GetProcAddress(h, "CPXLgetstatstring");
             CPXXgetx = (int (*)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM)) GetProcAddress(h, "CPXLgetx");
             CPXXmipopt = (int (*)(CPXCENVptr, CPXLPptr)) GetProcAddress(h, "CPXLmipopt");
             CPXXnewcols = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, double const *, double const *, double const *, char const *, char const *const *)) GetProcAddress(h, "CPXLnewcols");
@@ -91,7 +91,7 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
             CPXXsolution = (int (*)(CPXCENVptr, CPXCLPptr, int *, double *, double *, double *, double *, double *)) GetProcAddress(h, "CPXLsolution");
             CPXXwriteprob = (int (*)(CPXCENVptr, CPXCLPptr, char const *, char const *)) GetProcAddress(h, "CPXLwriteprob");
 #endif
-#ifdef CPX_APIMODEL == CPX_APIMODEL_SMALL
+#if CPX_APIMODEL == CPX_APIMODEL_SMALL
             CPXXaddmipstarts = (int (*)(CPXCENVptr, CPXLPptr, int, CPXNNZ, CPXNNZ const *, CPXDIM const *, double const *, int const *, char const *const *)) GetProcAddress(h, "CPXSaddmipstarts");
             CPXXaddqconstr = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, CPXNNZ, double, int, CPXDIM const *, double const *, CPXDIM const *, CPXDIM const *, double const *, char const *)) GetProcAddress(h, "CPXSaddqconstr");
             CPXXaddrows = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, CPXDIM, CPXNNZ, double const *, char const *, CPXNNZ const *, CPXDIM const *, double const *, char const *const *, char const *const *)) GetProcAddress(h, "CPXSaddrows");
@@ -105,15 +105,15 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
             CPXXfreeprob = (int (*)(CPXCENVptr, CPXLPptr *)) GetProcAddress(h, "CPXSfreeprob");
             CPXXgetbase = (int (*)(CPXCENVptr, CPXCLPptr, int *, int *)) GetProcAddress(h, "CPXSgetbase");
             CPXXgeterrorstring = (CPXCCHARptr (*)(CPXCENVptr, int, char *)) GetProcAddress(h, "CPXSgeterrorstring");
-            CPXXgetnumcols = (CPXDIM (*)(CPXCENVptr, CPXCLPptr) GetProcAddress(h, "CPXSgetnumcols");
+            CPXXgetnumcols = (CPXDIM (*)(CPXCENVptr, CPXCLPptr)) GetProcAddress(h, "CPXSgetnumcols");
             CPXXgetnumrows = (CPXDIM (*)(CPXCENVptr, CPXCLPptr)) GetProcAddress(h, "CPXSgetnumrows");
             CPXXgetobjval = (int (*)(CPXCENVptr, CPXCLPptr, double *)) GetProcAddress(h, "CPXSgetobjval");
             CPXXgetparamnum = (int (*)(CPXCENVptr, char const *, int *)) GetProcAddress(h, "CPXSgetparamnum");
             CPXXgetparamtype = (int (*)(CPXCENVptr, int, int *)) GetProcAddress(h, "CPXSgetparamtype");
             CPXXgetprobtype = (int (*)(CPXCENVptr, CPXCLPptr)) GetProcAddress(h, "CPXSgetprobtype");
             CPXXgetslack = (int (*)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM)) GetProcAddress(h, "CPXSgetslack");
-            CPXXgetstat = (int (*)(CPXCENVptr, CPXCLPptr) GetProcAddress(h, "CPXSgetstat");
-            CPXXgetstatstring = (CPXCHARptr (*)(CPXCENVptr, int, char *) GetProcAddress(h, "CPXSgetstatstring");
+            CPXXgetstat = (int (*)(CPXCENVptr, CPXCLPptr)) GetProcAddress(h, "CPXSgetstat");
+            CPXXgetstatstring = (CPXCHARptr (*)(CPXCENVptr, int, char *)) GetProcAddress(h, "CPXSgetstatstring");
             CPXXgetx = (int (*)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM)) GetProcAddress(h, "CPXSgetx");
             CPXXmipopt = (int (*)(CPXCENVptr, CPXLPptr)) GetProcAddress(h, "CPXSmipopt");
             CPXXnewcols = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, double const *, double const *, double const *, char const *, char const *const *)) GetProcAddress(h, "CPXSnewcols");
@@ -129,7 +129,7 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
 #endif
 
       #else // _WIN32
-  #ifdef CPX_APIMODEL == CPX_APIMODEL_LARGE
+  #if CPX_APIMODEL == CPX_APIMODEL_LARGE
             CPXXaddmipstarts = (int (*)(CPXCENVptr, CPXLPptr, int, CPXNNZ, CPXNNZ const *, CPXDIM const *, double const *, int const *, char const *const *)) dlsym(h, "CPXLaddmipstarts");
             CPXXaddqconstr = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, CPXNNZ, double, int, CPXDIM const *, double const *, CPXDIM const *, CPXDIM const *, double const *, char const *)) dlsym(h, "CPXLaddqconstr");
             CPXXaddrows = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, CPXDIM, CPXNNZ, double const *, char const *, CPXNNZ const *, CPXDIM const *, double const *, char const *const *, char const *const *)) dlsym(h, "CPXLaddrows");
@@ -143,15 +143,15 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
             CPXXfreeprob = (int (*)(CPXCENVptr, CPXLPptr *)) dlsym(h, "CPXLfreeprob");
             CPXXgetbase = (int (*)(CPXCENVptr, CPXCLPptr, int *, int *)) dlsym(h, "CPXLgetbase");
             CPXXgeterrorstring = (CPXCCHARptr (*)(CPXCENVptr, int, char *)) dlsym(h, "CPXLgeterrorstring");
-            CPXXgetnumcols = (CPXDIM (*)(CPXCENVptr, CPXCLPptr) dlsym(h, "CPXLgetnumcols");
+            CPXXgetnumcols = (CPXDIM (*)(CPXCENVptr, CPXCLPptr)) dlsym(h, "CPXLgetnumcols");
             CPXXgetnumrows = (CPXDIM (*)(CPXCENVptr, CPXCLPptr)) dlsym(h, "CPXLgetnumrows");
             CPXXgetobjval = (int (*)(CPXCENVptr, CPXCLPptr, double *)) dlsym(h, "CPXLgetobjval");
             CPXXgetparamnum = (int (*)(CPXCENVptr, char const *, int *)) dlsym(h, "CPXLgetparamnum");
             CPXXgetparamtype = (int (*)(CPXCENVptr, int, int *)) dlsym(h, "CPXLgetparamtype");
             CPXXgetprobtype = (int (*)(CPXCENVptr, CPXCLPptr)) dlsym(h, "CPXLgetprobtype");
             CPXXgetslack = (int (*)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM)) dlsym(h, "CPXLgetslack");
-            CPXXgetstat = (int (*)(CPXCENVptr, CPXCLPptr) dlsym(h, "CPXLgetstat");
-            CPXXgetstatstring = (CPXCHARptr (*)(CPXCENVptr, int, char *) dlsym(h, "CPXLgetstatstring");
+            CPXXgetstat = (int (*)(CPXCENVptr, CPXCLPptr)) dlsym(h, "CPXLgetstat");
+            CPXXgetstatstring = (CPXCHARptr (*)(CPXCENVptr, int, char *)) dlsym(h, "CPXLgetstatstring");
             CPXXgetx = (int (*)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM)) dlsym(h, "CPXLgetx");
             CPXXmipopt = (int (*)(CPXCENVptr, CPXLPptr)) dlsym(h, "CPXLmipopt");
             CPXXnewcols = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, double const *, double const *, double const *, char const *, char const *const *)) dlsym(h, "CPXLnewcols");
@@ -165,7 +165,7 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
             CPXXsolution = (int (*)(CPXCENVptr, CPXCLPptr, int *, double *, double *, double *, double *, double *)) dlsym(h, "CPXLsolution");
             CPXXwriteprob = (int (*)(CPXCENVptr, CPXCLPptr, char const *, char const *)) dlsym(h, "CPXLwriteprob");
 #endif
-#ifdef CPX_APIMODEL == CPX_APIMODEL_SMALL
+#if CPX_APIMODEL == CPX_APIMODEL_SMALL
             CPXXaddmipstarts = (int (*)(CPXCENVptr, CPXLPptr, int, CPXNNZ, CPXNNZ const *, CPXDIM const *, double const *, int const *, char const *const *)) dlsym(h, "CPXSaddmipstarts");
             CPXXaddqconstr = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, CPXNNZ, double, int, CPXDIM const *, double const *, CPXDIM const *, CPXDIM const *, double const *, char const *)) dlsym(h, "CPXSaddqconstr");
             CPXXaddrows = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, CPXDIM, CPXNNZ, double const *, char const *, CPXNNZ const *, CPXDIM const *, double const *, char const *const *, char const *const *)) dlsym(h, "CPXSaddrows");
@@ -179,15 +179,15 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
             CPXXfreeprob = (int (*)(CPXCENVptr, CPXLPptr *)) dlsym(h, "CPXSfreeprob");
             CPXXgetbase = (int (*)(CPXCENVptr, CPXCLPptr, int *, int *)) dlsym(h, "CPXSgetbase");
             CPXXgeterrorstring = (CPXCCHARptr (*)(CPXCENVptr, int, char *)) dlsym(h, "CPXSgeterrorstring");
-            CPXXgetnumcols = (CPXDIM (*)(CPXCENVptr, CPXCLPptr) dlsym(h, "CPXSgetnumcols");
+            CPXXgetnumcols = (CPXDIM (*)(CPXCENVptr, CPXCLPptr)) dlsym(h, "CPXSgetnumcols");
             CPXXgetnumrows = (CPXDIM (*)(CPXCENVptr, CPXCLPptr)) dlsym(h, "CPXSgetnumrows");
             CPXXgetobjval = (int (*)(CPXCENVptr, CPXCLPptr, double *)) dlsym(h, "CPXSgetobjval");
             CPXXgetparamnum = (int (*)(CPXCENVptr, char const *, int *)) dlsym(h, "CPXSgetparamnum");
             CPXXgetparamtype = (int (*)(CPXCENVptr, int, int *)) dlsym(h, "CPXSgetparamtype");
             CPXXgetprobtype = (int (*)(CPXCENVptr, CPXCLPptr)) dlsym(h, "CPXSgetprobtype");
             CPXXgetslack = (int (*)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM)) dlsym(h, "CPXSgetslack");
-            CPXXgetstat = (int (*)(CPXCENVptr, CPXCLPptr) dlsym(h, "CPXSgetstat");
-            CPXXgetstatstring = (CPXCHARptr (*)(CPXCENVptr, int, char *) dlsym(h, "CPXSgetstatstring");
+            CPXXgetstat = (int (*)(CPXCENVptr, CPXCLPptr)) dlsym(h, "CPXSgetstat");
+            CPXXgetstatstring = (CPXCHARptr (*)(CPXCENVptr, int, char *)) dlsym(h, "CPXSgetstatstring");
             CPXXgetx = (int (*)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM)) dlsym(h, "CPXSgetx");
             CPXXmipopt = (int (*)(CPXCENVptr, CPXLPptr)) dlsym(h, "CPXSmipopt");
             CPXXnewcols = (int (*)(CPXCENVptr, CPXLPptr, CPXDIM, double const *, double const *, double const *, char const *, char const *const *)) dlsym(h, "CPXSnewcols");

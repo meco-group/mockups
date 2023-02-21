@@ -142,7 +142,7 @@ DLLSYMBOL int (*CPXXgetbase)(CPXCENVptr, CPXCLPptr, int *, int *);
 #define CPXXgeterrorstring adaptor_CPXXgeterrorstring
 DLLSYMBOL CPXCCHARptr (*CPXXgeterrorstring)(CPXCENVptr, int, char *);
 #define CPXXgetnumcols adaptor_CPXXgetnumcols
-DLLSYMBOL CPXDIM (*CPXXgetnumcols)(CPXCENVptr, CPXCLPptr)
+DLLSYMBOL CPXDIM (*CPXXgetnumcols)(CPXCENVptr, CPXCLPptr);
 #define CPXXgetnumrows adaptor_CPXXgetnumrows
 DLLSYMBOL CPXDIM (*CPXXgetnumrows)(CPXCENVptr, CPXCLPptr);
 #define CPXXgetobjval adaptor_CPXXgetobjval
@@ -156,9 +156,9 @@ DLLSYMBOL int (*CPXXgetprobtype)(CPXCENVptr, CPXCLPptr);
 #define CPXXgetslack adaptor_CPXXgetslack
 DLLSYMBOL int (*CPXXgetslack)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM);
 #define CPXXgetstat adaptor_CPXXgetstat
-DLLSYMBOL int (*CPXXgetstat)(CPXCENVptr, CPXCLPptr)
+DLLSYMBOL int (*CPXXgetstat)(CPXCENVptr, CPXCLPptr);
 #define CPXXgetstatstring adaptor_CPXXgetstatstring
-DLLSYMBOL CPXCHARptr (*CPXXgetstatstring)(CPXCENVptr, int, char *)
+DLLSYMBOL CPXCHARptr (*CPXXgetstatstring)(CPXCENVptr, int, char *);
 #define CPXXgetx adaptor_CPXXgetx
 DLLSYMBOL int (*CPXXgetx)(CPXCENVptr, CPXCLPptr, double *, CPXDIM, CPXDIM);
 #define CPXXmipopt adaptor_CPXXmipopt
