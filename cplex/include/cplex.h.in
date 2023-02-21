@@ -60,6 +60,32 @@ typedef char       *CPXCHARptr;
 typedef const char *CPXCCHARptr;
 typedef void       *CPXVOIDptr;
 
+#define CPXMESSAGEBUFSIZE 1024
+
+#define CPX_INFBOUND  1.0E+20
+
+#define CPX_PARAMTYPE_NONE   0
+#define CPX_PARAMTYPE_INT    1
+#define CPX_PARAMTYPE_DOUBLE 2 
+#define CPX_PARAMTYPE_STRING 3
+#define CPX_PARAMTYPE_LONG   4
+
+#define CPX_AUTO -1
+#define CPX_ON 1
+#define CPX_OFF 0
+#define CPX_MAX -1
+#define CPX_MIN 1
+
+#define CPX_STAT_OPTIMAL 1
+#define CPX_STAT_INFEASIBLE 3
+#define CPX_STAT_FIRSTORDER 24
+
+#define CPXPROB_MIQP 7
+
+#define CPXMIP_OPTIMAL 101
+#define CPXMIP_OPTIMAL_TOL 102
+#define CPXERR_NO_SOLN 1217
+
 #define CASADI_CPLEX_ADAPTOR
 
 #ifdef _WIN32
@@ -99,6 +125,7 @@ typedef void       *CPXVOIDptr;
     typedef CPXLONG CPXCNT;
 #endif
 
+
 #ifdef _WIN32
     #ifdef DLL_IMPLEMENTATION
     #define DLLSYMBOL __declspec( dllexport )
@@ -113,7 +140,7 @@ typedef void       *CPXVOIDptr;
     #endif
 #endif
 
-int cplex_adaptor_load(adaptor_handle_t handle);
+int cplex_adaptor_load(const char* suffix, char* err_msg);
 
 [cplex_core.h]
 

@@ -41,6 +41,7 @@ with open("src/cplex.c","w") as fout:
 #define DLL_IMPLEMENTATION
 #include "cplex.h"
 
+#include <stdio.h>
 #ifdef _WIN32
 #include <windows.h>
 #else // _WIN32
@@ -55,14 +56,26 @@ with open("src/cplex.c","w") as fout:
 
   fout.write("""
   
-  int cplex_adaptor_load(adaptor_handle_t handle) {
-    #ifdef _WIN32
-    HINSTANCE h = (HINSTANCE) handle;
+  int cplex_adaptor_load(const char* suffix, char* err_msg) {
+    char buffer[100];
+    
+    #if defined(_WIN32)
+    sprintf(buffer, "libcplex%s.dll", suffix);
+    #elif defined(__APPLE__)
+    sprintf(buffer, "libcplex%s.dylib", suffix);
     #else
-    void * h = handle;
+    sprintf(buffer, "libcplex%s.so", suffix);
     #endif
     
-    if (h != NULL) {
+    #if defined(_WIN32)
+    HINSTANCE h = LoadLibrary(TEXT(buffer));
+    #elif defined(__APPLE__)
+    void * h = dlopen(buffer, RTLD_LAZY | RTLD_LOCAL);
+    #else
+    void * h = dlopen(buffer, RTLD_LAZY | RTLD_LOCAL | RTLD_DEEPBIND);
+    #endif
+    
+    if (h) {
       #ifdef _WIN32
 """)
     
@@ -91,6 +104,9 @@ with open("src/cplex.c","w") as fout:
       #endif // _WIN32
       
       return 0;
+    } else {
+      sprintf(err_msg, "Could not find library '%s'", buffer);
+      return 1;
     }
   }
   """)
