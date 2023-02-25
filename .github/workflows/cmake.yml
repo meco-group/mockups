@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       arch: manylinux1-x64
-      BUILD_TYPE: Release
     strategy:
       fail-fast: false
       matrix:
         arch: [manylinux1-x64,manylinux1-x86,manylinux2014-x64,manylinux2014-x86,windows-shared-x64-posix]
+        BUILD_TYPE: [Release,Debug]
     steps:
       - uses: actions/checkout@v3.3.0
         with:
@@ -30,8 +30,8 @@ jobs:
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         run: |
-          ./dockcross cmake -B /work/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DCMAKE_INSTALL_PREFIX=/work/install
-          ./dockcross cmake --build /work/build --target install --config ${{env.BUILD_TYPE}}
+          ./dockcross cmake -B /work/build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DCMAKE_INSTALL_PREFIX=/work/install
+          ./dockcross cmake --build /work/build --target install --config ${{matrix.BUILD_TYPE}}
 
       - run: ls ${{github.workspace}}/install
       
@@ -40,20 +40,20 @@ jobs:
         with:
           files: install/
           recursive: true
-          dest: mockups_${{matrix.arch}}.zip
+          dest: mockups_${{matrix.arch}}_${{matrix.BUILD_TYPE}}.zip
       - run: ls ${{github.workspace}}
 
       - uses: actions/upload-artifact@v3.1.2
         if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
         with:
           name: artifacts
-          path: ${{github.workspace}}/mockups_${{matrix.arch}}.zip
+          path: ${{github.workspace}}/mockups_${{matrix.arch}}_${{matrix.BUILD_TYPE}}.zip
 
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files:  ${{github.workspace}}/mockups_${{matrix.arch}}.zip
+          files:  ${{github.workspace}}/mockups_${{matrix.arch}}_${{matrix.BUILD_TYPE}}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -61,11 +61,11 @@ jobs:
     runs-on: ${{matrix.image == 'macos-m1' && 'self-hosted' || matrix.image }}
     env:
       arch: manylinux1-x64
-      BUILD_TYPE: Release
     strategy:
       fail-fast: false
       matrix:
         image: [macos-11,macos-m1]
+        BUILD_TYPE: [Release,Debug]
     steps:
       - uses: actions/checkout@v3.3.0
         with:
@@ -78,8 +78,8 @@ jobs:
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
         # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         run: |
-          CC=${{ env.CC }} FC=${{ env.FC }} CXX=${{ env.CXX }} cmake -DCMAKE_OSX_SYSROOT=${{env.CONDA_BUILD_SYSROOT}} -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install
-          cmake --build build --target install --config ${{env.BUILD_TYPE}}
+          CC=${{ env.CC }} FC=${{ env.FC }} CXX=${{ env.CXX }} cmake -DCMAKE_OSX_SYSROOT=${{env.CONDA_BUILD_SYSROOT}} -B build -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install
+          cmake --build build --target install --config ${{matrix.BUILD_TYPE}}
 
       - run: ls ${{github.workspace}}/install
       
@@ -88,51 +88,20 @@ jobs:
         with:
           files: install/
           recursive: true
-          dest: mockups_${{matrix.image}}.zip
+          dest: mockups_${{matrix.image}}_${{matrix.BUILD_TYPE}}.zip
       - run: ls ${{github.workspace}}
 
       - uses: actions/upload-artifact@v3.1.2
         if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
         with:
           name: artifacts
-          path: ${{github.workspace}}/mockups_${{matrix.image}}.zip
+          path: ${{github.workspace}}/mockups_${{matrix.image}}_${{matrix.BUILD_TYPE}}.zip
 
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files:  ${{github.workspace}}/mockups_${{matrix.image}}.zip
+          files:  ${{github.workspace}}/mockups_${{matrix.image}}_${{matrix.BUILD_TYPE}}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
-  build:
-    runs-on: windows-2016
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Build
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: |
-        cd matlab
-        cmake -B ${{github.workspace}}/build -G "Visual Studio 15 2017" -A x64 -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=ON -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install
-        cmake --build ${{github.workspace}}/build --target install --config ${{env.BUILD_TYPE}}
-        cd ..
-      
-    - name: zip
-      run: 7z a ${{github.workspace}}/mockups_${{env.TAG}}.zip ${{github.workspace}}/install/*
-
-    - uses: actions/upload-artifact@v3.1.2
-      if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
-      with:
-        name: artifacts
-        path: ${{github.workspace}}/mockups_${{env.TAG}}.zip
-        
-    - name: Release
-      uses: softprops/action-gh-release@v0.1.15
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files:  ${{github.workspace}}/mockups_${{env.TAG}}.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
