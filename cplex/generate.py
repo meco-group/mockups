@@ -57,6 +57,21 @@ with open("src/cplex.c","w") as fout:
 
   fout.write("""
   
+  #if defined(_WIN32)
+  static HINSTANCE h;
+  #else
+  void * h;
+  #endif
+  
+  void cplex_adaptor_unload() {
+    if (h) {
+        #if defined(_WIN32)
+        FreeLibray(h);
+        #elif defined(__APPLE__)
+        dlclose(h);
+        #endif
+    }
+  }
   int cplex_adaptor_load(char* err_msg, unsigned int err_msg_len) {
   
     const char* suffix = getenv("CPLEX_VERSION");
@@ -84,11 +99,11 @@ with open("src/cplex.c","w") as fout:
     snprintf(buffer, 100, "libcplex%s.%s", suffix, library_suffix);
 
     #if defined(_WIN32)
-    HINSTANCE h = LoadLibrary(TEXT(buffer));
+    h = LoadLibrary(TEXT(buffer));
     #elif defined(__APPLE__)
-    void * h = dlopen(buffer, RTLD_LAZY | RTLD_LOCAL);
+    h = dlopen(buffer, RTLD_LAZY | RTLD_LOCAL);
     #else
-    void * h = dlopen(buffer, RTLD_LAZY | RTLD_LOCAL | RTLD_DEEPBIND);
+    h = dlopen(buffer, RTLD_LAZY | RTLD_LOCAL | RTLD_DEEPBIND);
     #endif
     
     if (h) {
@@ -98,10 +113,12 @@ with open("src/cplex.c","w") as fout:
   fout.write("""#if CPX_APIMODEL == CPX_APIMODEL_LARGE\n""")
   for decl in method_declarations:
     fout.write("""            %s = (%s) GetProcAddress(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl).replace("CPXX","CPXL")))
+    fout.write("""            if (%s==NULL) { snprintf(err_msg, err_msg_len, "Could not find symbol '%s' in libcplex%%s.%%s", suffix, library_suffix); return 2; };\n""" % (get_name(decl),get_name(decl).replace("CPXX","CPXL")))
   fout.write("""#endif\n""")
   fout.write("""#if CPX_APIMODEL == CPX_APIMODEL_SMALL\n""")
   for decl in method_declarations:
     fout.write("""            %s = (%s) GetProcAddress(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl).replace("CPXX","CPXS")))
+    fout.write("""            if (%s==NULL) { snprintf(err_msg, err_msg_len, "Could not find symbol '%s' in libcplex%%s.%%s", suffix, library_suffix); return 2; };\n""" % (get_name(decl),get_name(decl).replace("CPXX","CPXS")))
   fout.write("""#endif\n""")
   
   fout.write("""
@@ -111,10 +128,12 @@ with open("src/cplex.c","w") as fout:
   fout.write("""#if CPX_APIMODEL == CPX_APIMODEL_LARGE\n""")
   for decl in method_declarations:
     fout.write("""            %s = (%s) dlsym(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl).replace("CPXX","CPXL")))
+    fout.write("""            if (%s==NULL) { snprintf(err_msg, err_msg_len, "Could not find symbol '%s' in libcplex%%s.%%s", suffix, library_suffix); return 2; };\n""" % (get_name(decl),get_name(decl).replace("CPXX","CPXL")))
   fout.write("""#endif\n""")
   fout.write("""#if CPX_APIMODEL == CPX_APIMODEL_SMALL\n""")
   for decl in method_declarations:
     fout.write("""            %s = (%s) dlsym(h, "%s");\n""" % (get_name(decl),function_ptr(decl),get_name(decl).replace("CPXX","CPXS")))
+    fout.write("""            if (%s==NULL) { snprintf(err_msg, err_msg_len, "Could not find symbol '%s' in libcplex%%s.%%s", suffix, library_suffix); return 2; };\n""" % (get_name(decl),get_name(decl).replace("CPXX","CPXS")))
   fout.write("""#endif\n""")                 
   fout.write("""
       #endif // _WIN32
