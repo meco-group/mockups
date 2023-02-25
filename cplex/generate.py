@@ -66,7 +66,7 @@ with open("src/cplex.c","w") as fout:
   void cplex_adaptor_unload() {
     if (h) {
         #if defined(_WIN32)
-        FreeLibray(h);
+        FreeLibrary(h);
         #elif defined(__APPLE__)
         dlclose(h);
         #endif
