@@ -1,6 +1,6 @@
 
 #define DLL_IMPLEMENTATION
-#include "cplex.h"
+#include "ilcplex/cplexx.h"
 
 #include <stdlib.h>
 #include <stdio.h>

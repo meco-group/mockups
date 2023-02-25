@@ -26,7 +26,7 @@ def get_name(decl):
 def function_ptr(decl):
   return decl[:-1].replace(get_name(decl),"(*)")
 
-with open("include/cplex.h","w") as fout:
+with open("include/ilcplex/cplexx.h","w") as fout:
   fout.write("".join(preamble))
   for decl in method_declarations:
     fout.write("#define %s adaptor_%s\n" % (get_name(decl),get_name(decl)))
@@ -39,7 +39,7 @@ with open("src/cplex.c","w") as fout:
 
   fout.write("""
 #define DLL_IMPLEMENTATION
-#include "cplex.h"
+#include "ilcplex/cplexx.h"
 
 #include <stdlib.h>
 #include <stdio.h>
