@@ -41,6 +41,7 @@ with open("src/cplex.c","w") as fout:
 #define DLL_IMPLEMENTATION
 #include "cplex.h"
 
+#include <stdlib.h>
 #include <stdio.h>
 #ifdef _WIN32
 #include <windows.h>
@@ -56,17 +57,32 @@ with open("src/cplex.c","w") as fout:
 
   fout.write("""
   
-  int cplex_adaptor_load(const char* suffix, char* err_msg) {
-    char buffer[100];
+  int cplex_adaptor_load(char* err_msg, unsigned int err_msg_len) {
+  
+    const char* suffix = getenv("CPLEX_VERSION");
     
     #if defined(_WIN32)
-    sprintf(buffer, "libcplex%s.dll", suffix);
+    const char library_suffix[] = "dll";
+    const char path_env[] = "PATH";
     #elif defined(__APPLE__)
-    sprintf(buffer, "libcplex%s.dylib", suffix);
+    const char library_suffix[] = "dylib";
+    const char path_env[] = "DYLD_LIBRARY_PATH";
     #else
-    sprintf(buffer, "libcplex%s.so", suffix);
+    const char library_suffix[] = "so";
+    const char path_env[] = "LD_LIBRARY_PATH";
     #endif
     
+    
+    if (suffix==NULL) {
+        snprintf(err_msg, err_msg_len, "CPLEX load adaptor needs an environmental variable <CPLEX_VERSION> "
+        "such that libcplex<CPLEX_VERSION>.%s can be found.", library_suffix);
+        return 1;
+    }
+
+    char buffer[100];
+    
+    snprintf(buffer, 100, "libcplex%s.%s", suffix, library_suffix);
+
     #if defined(_WIN32)
     HINSTANCE h = LoadLibrary(TEXT(buffer));
     #elif defined(__APPLE__)
@@ -105,7 +121,8 @@ with open("src/cplex.c","w") as fout:
       
       return 0;
     } else {
-      sprintf(err_msg, "Could not find library '%s'", buffer);
+      snprintf(err_msg, err_msg_len, "Could not find library '%s'. "
+        "Consider adding the appropriate cplex folder to environmental variable '%s'.", buffer, path_env);
       return 1;
     }
   }

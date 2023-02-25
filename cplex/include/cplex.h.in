@@ -86,7 +86,7 @@ typedef void       *CPXVOIDptr;
 #define CPXMIP_OPTIMAL_TOL 102
 #define CPXERR_NO_SOLN 1217
 
-#define CASADI_CPLEX_ADAPTOR
+#define CPLEX_ADAPTOR
 
 #ifdef _WIN32
 #include <windows.h>
@@ -140,7 +140,7 @@ typedef void       *CPXVOIDptr;
     #endif
 #endif
 
-int cplex_adaptor_load(const char* suffix, char* err_msg);
+int cplex_adaptor_load(char* err_msg, unsigned int err_msg_len);
 
 [cplex_core.h]
 
