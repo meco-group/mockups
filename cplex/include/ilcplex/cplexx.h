@@ -140,8 +140,8 @@ typedef void       *CPXVOIDptr;
     #endif
 #endif
 
-int cplex_adaptor_load(char* err_msg, unsigned int err_msg_len);
-void cplex_adaptor_unload();
+DLLSYMBOL int cplex_adaptor_load(char* err_msg, unsigned int err_msg_len);
+DLLSYMBOL void cplex_adaptor_unload();
 
 #define CPXXaddmipstarts adaptor_CPXXaddmipstarts
 DLLSYMBOL int (*CPXXaddmipstarts)(CPXCENVptr, CPXLPptr, int, CPXNNZ, CPXNNZ const *, CPXDIM const *, double const *, int const *, char const *const *);

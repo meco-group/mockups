@@ -140,8 +140,8 @@ typedef void       *CPXVOIDptr;
     #endif
 #endif
 
-int cplex_adaptor_load(char* err_msg, unsigned int err_msg_len);
-void cplex_adaptor_unload();
+DLLSYMBOL int cplex_adaptor_load(char* err_msg, unsigned int err_msg_len);
+DLLSYMBOL void cplex_adaptor_unload();
 
 [cplex_core.h]
 
