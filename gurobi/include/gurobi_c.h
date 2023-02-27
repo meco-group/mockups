@@ -108,7 +108,9 @@ typedef struct _GRBenv GRBenv;
 #define GRB_DBL_ATTR_NODECOUNT     "NodeCount"
 #define GRB_DBL_ATTR_OPENNODECOUNT "OpenNodeCount"
 #define GRB_INT_ATTR_HASDUALNORM   "HasDualNorm"
-                                                     
+             
+#define GUROBI_ADAPTOR
+                                     
 #define GRBaddconstr adaptor_GRBaddconstr
 DLLSYMBOL int (__stdcall *GRBaddconstr)(GRBmodel *, int, int *, double *, char, double, const char *);
 #define GRBaddqconstr adaptor_GRBaddqconstr
