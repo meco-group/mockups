@@ -75,6 +75,25 @@ typedef struct _GRBenv GRBenv;
 #define GRB_DBL_ATTR_CDUALNORM "CDualNorm"
 #define GRB_INT_ATTR_CBASIS    "CBasis"
 
+#define GRB_LESS_EQUAL    '<'
+#define GRB_GREATER_EQUAL '>'
+#define GRB_EQUAL         '='
+
+#define GRB_MINIMIZE 1
+#define GRB_MAXIMIZE -1
+
+#define GRB_SOS_TYPE1 1
+#define GRB_SOS_TYPE2 2
+
+#define GRB_INFINITY  1e100
+#define GRB_UNDEFINED 1e101
+#define GRB_MAXINT    2000000000
+
+#define GRB_MAX_NAMELEN    255
+#define GRB_MAX_STRLEN     512
+#define GRB_MAX_TAGLEN    10240
+#define GRB_MAX_CONCURRENT 64
+
 [gurobi_core.h]
 
 #ifdef __cplusplus
