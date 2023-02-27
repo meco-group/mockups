@@ -110,6 +110,9 @@ typedef struct _GRBenv GRBenv;
 #define GRB_INT_ATTR_HASDUALNORM   "HasDualNorm"
              
 #define GUROBI_ADAPTOR
+
+DLLSYMBOL int gurobi_adaptor_load(char* err_msg, unsigned int err_msg_len);
+DLLSYMBOL void gurobi_adaptor_unload();
                                      
 #define GRBaddconstr adaptor_GRBaddconstr
 DLLSYMBOL int (__stdcall *GRBaddconstr)(GRBmodel *, int, int *, double *, char, double, const char *);
