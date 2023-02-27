@@ -94,6 +94,21 @@ typedef struct _GRBenv GRBenv;
 #define GRB_MAX_TAGLEN    10240
 #define GRB_MAX_CONCURRENT 64
 
+#define GRB_DBL_ATTR_RUNTIME       "Runtime"
+#define GRB_INT_ATTR_STATUS        "Status"
+#define GRB_DBL_ATTR_OBJVAL        "ObjVal"
+#define GRB_DBL_ATTR_OBJBOUND      "ObjBound"
+#define GRB_DBL_ATTR_OBJBOUNDC     "ObjBoundC"
+#define GRB_DBL_ATTR_POOLOBJBOUND  "PoolObjBound"
+#define GRB_DBL_ATTR_POOLOBJVAL    "PoolObjVal"
+#define GRB_DBL_ATTR_MIPGAP        "MIPGap"
+#define GRB_INT_ATTR_SOLCOUNT      "SolCount"
+#define GRB_DBL_ATTR_ITERCOUNT     "IterCount"
+#define GRB_INT_ATTR_BARITERCOUNT  "BarIterCount"
+#define GRB_DBL_ATTR_NODECOUNT     "NodeCount"
+#define GRB_DBL_ATTR_OPENNODECOUNT "OpenNodeCount"
+#define GRB_INT_ATTR_HASDUALNORM   "HasDualNorm"
+                                                     
 [gurobi_core.h]
 
 #ifdef __cplusplus
