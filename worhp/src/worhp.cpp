@@ -13,4 +13,8 @@ bool WorhpSetBoolParam  (Params *, const char*, bool) { return 0; }
 bool WorhpSetDoubleParam(Params *, const char*, double) { return 0; }
 bool WorhpSetIntParam   (Params *, const char*, int) { return 0; }
 void Worhp(OptVar*, Workspace*, Params*, Control*) {}
-
+void InitParams(int*, Params*) {}
+bool GetUserAction(const Control *, int) { return 0; }
+void DoneUserAction(Control *, int) {}
+void StatusMsg(OptVar* o, Workspace* w, Params* p, Control* c) {}
+void IterationOutput(OptVar*, Workspace*, Params*, Control*) {}
