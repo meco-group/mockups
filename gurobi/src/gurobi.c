@@ -46,7 +46,7 @@ int (*GRBupdatemodel)(GRBmodel *) = NULL;
     if (h) {
         #if defined(_WIN32)
         FreeLibrary(h);
-        #elif defined(__APPLE__)
+        #else
         dlclose(h);
         #endif
     }
