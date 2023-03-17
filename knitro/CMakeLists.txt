@@ -14,6 +14,10 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 add_library(knitro SHARED src/knitro.cpp include/knitro.h)
 
+if(WIN32)
+  set_target_properties(${LIBRARY_NAME} PROPERTIES PREFIX "" IMPORT_PREFIX "")
+endif()
+
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
   set(NBITS_TWO "32")
 elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
