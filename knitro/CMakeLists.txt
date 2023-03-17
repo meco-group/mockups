@@ -15,7 +15,7 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 add_library(knitro SHARED src/knitro.cpp include/knitro.h)
 
 if(WIN32)
-  set_target_properties(${LIBRARY_NAME} PROPERTIES PREFIX "" IMPORT_PREFIX "")
+  set_target_properties(knitro PROPERTIES PREFIX "" IMPORT_PREFIX "")
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -34,12 +34,6 @@ elseif(${CMAKE_GENERATOR} MATCHES "MSYS Makefiles")
   set(ARCHIVE_DIR extern/lib/win${NBITS_TWO}/mingw${NBITS_TWO})
   set(RUNTIME_DIR bin/win${NBITS_TWO})
 endif()
-
-install(TARGETS ${LIBRARY_NAME} EXPORT knitroTargets
-  LIBRARY DESTINATION ${INSTALL_PREFIX}lib
-  ARCHIVE DESTINATION ${INSTALL_PREFIX}${ARCHIVE_DIR}
-  RUNTIME DESTINATION ${INSTALL_PREFIX}${RUNTIME_DIR})
-
 
 
 install(TARGETS knitro EXPORT knitroTargets

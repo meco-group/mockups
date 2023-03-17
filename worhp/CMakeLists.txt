@@ -15,7 +15,7 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 add_library(worhp SHARED src/worhp.cpp include/worhp.h)
 
 if(WIN32)
-  set_target_properties(${LIBRARY_NAME} PROPERTIES PREFIX "" IMPORT_PREFIX "")
+  set_target_properties(worhp PROPERTIES PREFIX "" IMPORT_PREFIX "")
 endif()
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -34,12 +34,6 @@ elseif(${CMAKE_GENERATOR} MATCHES "MSYS Makefiles")
   set(ARCHIVE_DIR extern/lib/win${NBITS_TWO}/mingw${NBITS_TWO})
   set(RUNTIME_DIR bin/win${NBITS_TWO})
 endif()
-
-install(TARGETS ${LIBRARY_NAME} EXPORT worhpTargets
-  LIBRARY DESTINATION ${INSTALL_PREFIX}lib
-  ARCHIVE DESTINATION ${INSTALL_PREFIX}${ARCHIVE_DIR}
-  RUNTIME DESTINATION ${INSTALL_PREFIX}${RUNTIME_DIR})
-
 
 install(TARGETS worhp EXPORT worhpTargets
   LIBRARY DESTINATION ${INSTALL_PREFIX}lib
