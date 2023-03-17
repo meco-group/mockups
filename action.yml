@@ -9,7 +9,7 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -OL https://github.com/casadi/mockups/releases/download/v46/mockups_${{ inputs.tag }}_Release.zip
+        curl -OL https://github.com/casadi/mockups/releases/download/v55/mockups_${{ inputs.tag }}_Release.zip
         unzip mockups_${{ inputs.tag }}_Release.zip -d mockups
         ls mockups
         ls mockups/cmake
