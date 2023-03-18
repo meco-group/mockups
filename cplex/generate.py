@@ -78,25 +78,27 @@ with open("src/cplex.c","w") as fout:
     
     #if defined(_WIN32)
     const char library_suffix[] = "dll";
+    const char library_prefix[] = "";
     const char path_env[] = "PATH";
     #elif defined(__APPLE__)
     const char library_suffix[] = "dylib";
+    const char library_prefix[] = "lib";
     const char path_env[] = "DYLD_LIBRARY_PATH";
     #else
     const char library_suffix[] = "so";
+    const char library_prefix[] = "lib";
     const char path_env[] = "LD_LIBRARY_PATH";
     #endif
-    
-    
+   
     if (suffix==NULL) {
         snprintf(err_msg, err_msg_len, "CPLEX load adaptor needs an environmental variable <CPLEX_VERSION> "
-        "such that libcplex<CPLEX_VERSION>.%s can be found.", library_suffix);
+        "such that %scplex<CPLEX_VERSION>.%s can be found.", library_prefix, library_suffix);
         return 1;
     }
 
     char buffer[100];
     
-    snprintf(buffer, 100, "libcplex%s.%s", suffix, library_suffix);
+    snprintf(buffer, 100, "%scplex%s.%s", library_prefix, suffix, library_suffix);
 
     #if defined(_WIN32)
     h = LoadLibrary(TEXT(buffer));
