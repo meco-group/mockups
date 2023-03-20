@@ -185,8 +185,8 @@ int (*GRBupdatemodel)(GRBmodel *) = NULL;
       
       return 0;
     } else {
-      snprintf(err_msg, err_msg_len, "Could not find library '%s'. "
-        "Consider adding the appropriate gurobi folder to environmental variable '%s'.", buffer, path_env);
+      snprintf(err_msg, err_msg_len, "Could not find library '%s' (%sgurobi<GUROBI_VERSION>.%s). "
+        "Consider adding the appropriate gurobi folder to environmental variable '%s', or specifying a different variable 'CPLEX_VERSION'.", buffer, library_prefix, library_suffix, path_env);
       return 1;
     }
   }

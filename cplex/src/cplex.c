@@ -388,8 +388,8 @@ int (*CPXXwriteprob)(CPXCENVptr, CPXCLPptr, char const *, char const *) = NULL;
       
       return 0;
     } else {
-      snprintf(err_msg, err_msg_len, "Could not find library '%s'. "
-        "Consider adding the appropriate cplex folder to environmental variable '%s'.", buffer, path_env);
+      snprintf(err_msg, err_msg_len, "Could not find library '%s' (%scplex<CPLEX_VERSION>.%s). "
+        "Consider adding the appropriate cplex folder to environmental variable '%s', or specifying a different variable 'CPLEX_VERSION'.", buffer, library_prefix, library_suffix, path_env);
       return 1;
     }
   }
