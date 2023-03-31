@@ -11,9 +11,31 @@ extern "C" {
 #include <string.h>
 #include <assert.h>
 
-typedef struct snProblem_internal snProblem;
-
 typedef void (*snFunC)(int*, int*, int*, int*, int*, int*, double [], double*,  double [], double [], double [], int*,char   [], int*, int[], int*, double [], int*);
+
+typedef void (*anon_f)(void);
+
+typedef struct {
+  char   *anon1;
+
+  int     anon2;
+  int     anon3;
+  int     anon4;
+
+  anon_f anon5;
+  anon_f anon6;
+  anon_f anon7;
+  anon_f anon8;
+
+  int     lenrw, leniw;
+  int    *iw;
+  double *rw;
+
+  int     lenru, leniu;
+  int    *iu;
+  double *ru;
+
+} snProblem;
 
 void snInitX(snProblem*, char*, char*, int, char*, int);
 void snInit(snProblem*, char*, char*, int);
