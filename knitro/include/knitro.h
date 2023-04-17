@@ -102,6 +102,7 @@ int  KNITRO_API KN_set_var_types_all (KN_context_ptr, const int * const);
 int  KNITRO_API KN_set_var_upbnds_all (KN_context_ptr, const double * const);
 int  KNITRO_API KN_solve (KN_context_ptr);
 int  KNITRO_API KN_set_int_param_by_name(KN_context_ptr, const char * const, const int value);
+int  KNITRO_API KN_load_param_file(KN_context_ptr, const char * const);
     
 
 #define KN_INFINITY DBL_MAX
