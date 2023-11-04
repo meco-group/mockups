@@ -74,6 +74,7 @@ typedef struct _GRBenv GRBenv;
 #define GRB_DBL_ATTR_QCSLACK   "QCSlack"
 #define GRB_DBL_ATTR_CDUALNORM "CDualNorm"
 #define GRB_INT_ATTR_CBASIS    "CBasis"
+#define GRB_INT_PAR_SOLUTIONNUMBER "SolutionNumber"
 
 #define GRB_LESS_EQUAL    '<'
 #define GRB_GREATER_EQUAL '>'
