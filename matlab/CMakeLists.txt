@@ -18,10 +18,45 @@ endif()
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-add_library(mex SHARED src/mex.cpp include/mex.h include/mex_versions.h)
-add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h include/matrix_versions.h)
-add_library(ut SHARED src/ut.cpp)
-add_library(eng SHARED src/eng.cpp)
+add_library(mex SHARED src/mex.cpp include/mex.h include/mex_versions.h include/mex_Export.h)
+add_library(mx SHARED src/mx.cpp include/mex.h include/matrix.h include/matrix_versions.h include/mx_Export.h)
+add_library(ut SHARED src/ut.cpp include/ut.h include/ut_Export.h)
+add_library(eng SHARED src/eng.cpp include/eng_Export.h)
+
+include(GenerateExportHeader)
+
+GENERATE_EXPORT_HEADER(
+    mex
+    BASE_NAME mex
+	EXPORT_MACRO_NAME mex_Export
+	EXPORT_FILE_NAME include/mex_Export.h
+    STATIC_DEFINE mex_BUILT_AS_STATIC
+)
+GENERATE_EXPORT_HEADER(
+    mx
+    BASE_NAME mx
+	EXPORT_MACRO_NAME mx_Export
+	EXPORT_FILE_NAME include/mx_Export.h
+    STATIC_DEFINE mx_BUILT_AS_STATIC
+)
+GENERATE_EXPORT_HEADER(
+    ut
+    BASE_NAME ut
+	EXPORT_MACRO_NAME ut_Export
+	EXPORT_FILE_NAME include/ut_Export.h
+    STATIC_DEFINE ut_BUILT_AS_STATIC
+)
+GENERATE_EXPORT_HEADER(
+    eng
+    BASE_NAME eng
+	EXPORT_MACRO_NAME eng_Export
+	EXPORT_FILE_NAME include/eng_Export.h
+    STATIC_DEFINE eng_BUILT_AS_STATIC
+)
+#target_include_directories(mex PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+#target_include_directories(mx PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+#target_include_directories(ut PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
+#target_include_directories(eng PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 
 if (NOT MATLAB_API_VERSION)
   set(MATLAB_API_VERSION 800)
@@ -106,6 +141,11 @@ install(TARGETS matlab EXPORT matlabTargets
 target_include_directories(mex PUBLIC
   $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:${INSTALL_PREFIX}include>
+)
+
+target_include_directories(ut PUBLIC
+  $<BUILD_INTERFACE:${matlab_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
 )
 
 target_include_directories(mx PUBLIC

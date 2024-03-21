@@ -1,5 +1,7 @@
 #ifndef mex_H
 #define mex_H
+#include "mex_Export.h"
+#include "mx_Export.h"
 
 
 extern "C"
@@ -12,15 +14,15 @@ extern "C"
   #include <mex_versions.h>
 
 // methods
-int mexCallMATLAB(int, mxArray *[], int, mxArray *[], const char *);
-void mexErrMsgIdAndTxt(const char *, const char *, ...);
-mxArray *mexCallMATLABWithTrap(int, mxArray *[], int, mxArray *[], const char *);
-mxArray *mexGetVariable(const char *, const char *);
-int mexEvalString(const char *);
-void mexWarnMsgIdAndTxt(const char *, const char *, ...);
-int mexPrintf(const char*, ...);
-void mexLock(void);
-int mexAtExit(void (*)(void));
+int mex_Export mexCallMATLAB(int, mxArray *[], int, mxArray *[], const char *);
+void mex_Export mexErrMsgIdAndTxt(const char *, const char *, ...);
+mxArray mex_Export *mexCallMATLABWithTrap(int, mxArray *[], int, mxArray *[], const char *);
+mxArray mex_Export *mexGetVariable(const char *, const char *);
+int mex_Export mexEvalString(const char *);
+void mex_Export mexWarnMsgIdAndTxt(const char *, const char *, ...);
+int mex_Export mexPrintf(const char*, ...);
+void mex_Export mexLock(void);
+int mex_Export mexAtExit(void (*)(void));
 
 }
 
