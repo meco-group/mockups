@@ -10,3 +10,4 @@ void mex_Export mexLock(void) {}
 int mex_Export mexAtExit(void (*)(void)) { return 0; }
 int mex_Export mexEvalString(const char *) { return 0; }
 void mex_Export mexMakeArrayPersistent(mxArray *) {}
+maxArray mex_Export *mxDuplicateArray(const mxArray *) { return 0; }
