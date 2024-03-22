@@ -7,7 +7,7 @@ mxArray mex_Export *mexGetVariable(const char *, const char *) { return 0; }
 void mex_Export mexWarnMsgIdAndTxt(const char *, const char *, ...) {}
 int mex_Export mexPrintf(const char*, ...) { return 0; }
 void mex_Export mexLock(void) {}
-void mex_Export mexUnLock(void) {}
+void mex_Export mexUnlock(void) {}
 int mex_Export mexAtExit(void (*)(void)) { return 0; }
 int mex_Export mexEvalString(const char *) { return 0; }
 void mex_Export mexMakeArrayPersistent(mxArray *) {}
