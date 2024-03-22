@@ -94,6 +94,6 @@ void mx_Export mxSetField(mxArray *, mwIndex, const char *, mxArray *);
 void mx_Export mxSetProperty(mxArray *, mwIndex, const char *, const mxArray *);
 void mx_Export mxSetFieldByNumber(mxArray *, mwIndex, int, mxArray *);
 mxArray* mx_Export mxCreateCharArray(mwSize, const mwSize *);
-maxArray mex_Export *mxDuplicateArray(const mxArray *);
+mxArray mex_Export *mxDuplicateArray(const mxArray *);
 
 #endif // matrix_H
